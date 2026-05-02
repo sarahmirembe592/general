@@ -1,0 +1,40 @@
+
+{% extends 'base.html' %}
+{% block content %}
+  
+<table class="table">
+  <thead>
+    <tr>
+      
+      <th scope="col">Item Name</th>
+      <th scope="col">Unit of Measure</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Item Unit Cost</th>
+      <th scope="col">Item Selling Price</th>
+      <th scope="col">Date of Stock</th>
+      <th scope="col">Item Supplier Name</th>
+      <th scope="col">Product Specification</th>
+      <th scope="col">Mode of Payment</th>
+    </tr>
+  </thead>
+  <tbody>
+     {% for stock in stock %}
+    <tr>
+     
+     
+      <td>{{stock.item_name}}</td>
+      <td>{{stock.unit}}</td>
+      <td>{{stock.quantity}}</td>
+      <td>{{stock.unit_cost}}</td>
+      <td>{{stock.selling_price}}</td>
+      <td>{{stock.stock_date}}</td>
+      <td>{{stock.supplier}}</td>
+      <td>{{stock.specification}}</td>
+      <td>{{stock.payment_mode}}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+    
+    </table>
+    <a href="{% url 'add' %}">Go to Add Stock Page</a>  
+{% endblock %}
