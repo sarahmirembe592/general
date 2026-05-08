@@ -69,7 +69,7 @@ button {
     padding: 12px;
     border: none;
     border-radius: 6px;
-    background: #007bff;
+    background: green;
     color: white;
     font-size: 15px;
     cursor: pointer;
@@ -77,12 +77,84 @@ button {
 }
 
 button:hover {
-    background: #0056b3;
+    background: green;
 }
+/* Basic Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+/* Navbar Container */
+.navbar {
+  display: flex;
+  justify-content: space-between; /* Pushes logo and links to opposite sides */
+  align-items: center;
+  padding: 15px 30px;
+  background-color: #333;
+  color: white;
+  position: sticky; /* Keeps navbar at the top while scrolling */
+  top: 0;
+  z-index: 1000;
+  margin-top: 20px;
+}
+
+/* Logo Styling */
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Links Layout */
+.nav-links {
+  list-style: none; /* Removes bullet points */
+  display: flex;
+  gap: 20px; /* Space between links */
+}
+
+/* Individual Link Styling */
+.nav-links a {
+  text-decoration: none;
+  color: white;
+  font-size: 18px;
+  transition: color 0.3s ease;
+}
+
+/* Hover Effect */
+.nav-links a:hover {
+  color: #04AA6D; /* Changes color on hover */
+}
+
+/* Action Button (Optional) */
+.cta {
+  background-color: #04AA6D;
+  padding: 8px 15px;
+  border-radius: 5px;
+}
+
+.cta:hover {
+  background-color: #059862;
+  color: white !important;
+}
+
     </style>
 </head>
 
 <body>
+    <nav class="navbar">
+  <div class="logo">Welcome to Nyondo</div>
+  <ul class="nav-links">
+    <li><a href="/">Stock</a></li>
+    <li><a href="/home1">Sales</a></li>
+    <!-- <li><a href="/home2">Home2</a></li> -->
+    <li><a href="/home3">customers</a></li>
+    
+  </ul>
+</nav>
+
 
 <div class="container">
     <h2>New Stock Entry</h2>
@@ -114,7 +186,7 @@ button:hover {
 <div class="section">INVENTORY & PRICING</div>
 
 <div class="col">
-    <label>Quantity</label>
+    <label>Item Quantity</label>
     <input type="number" name="quantity" required>
 </div>
 
@@ -125,19 +197,10 @@ button:hover {
 
 <div class="col">
     <label>Item Selling Price</label>
-    <select name="selling_price" required>
-        <option value="">Select</option>
-        <option>10000</option>
-        <option>20000</option>
-        <option>35000</option>
-        <option>5000</option>
-    </select>
+    <input type="number" name="selling_price" required>
+    
 </div>
 
-<div class="col">
-    <label>Date of Stock</label>
-    <input type="date" name="stock_date" required>
-</div>
 
 
 <div class="section">SUPPLIER & SPECIFICATION</div>
@@ -168,6 +231,8 @@ button:hover {
         <option value="WIRE MESH">Wire Mesh</option>
         <option value="BARBED HIGH">Barbed Wire - High Tensile</option>
         <option value="BARBED LOW">Barbed Wire - Low Tensile</option>
+        <option value="others">Other tools</option>
+        <option value="WHEEL BARROW">Wheel Barrow</option>
     </select>
 </div>
 
@@ -182,7 +247,7 @@ button:hover {
         <option>Mobile Money</option>
         <option>Bank Transfer</option>
         <option>Credit</option>
-    </select>
+    </select> 
 </div>
 
 <div></div>

@@ -1,9 +1,7 @@
-
 {% extends 'base.html' %}
-
 {% block content %}
 <style>
-  /* Basic Reset */
+      /* Basic Reset */
 * {
   margin: 0;
   padding: 0;
@@ -23,8 +21,6 @@
   top: 0;
   z-index: 1000;
   margin-top: 20px;
-  
-
 }
 
 /* Logo Styling */
@@ -65,7 +61,7 @@
   background-color: #059862;
   color: white !important;
 }
-.styled-table {
+    .styled-table {
     border-collapse: collapse; /* Merges adjacent borders into one */
     margin: 25px 0;
     font-size: 0.9em;
@@ -105,51 +101,57 @@
 
 
 </style>
-
-<nav class="navbar">
+   <nav class="navbar">
   <div class="logo">Welcome to Nyondo</div>
   <ul class="nav-links">
-    <li><a href="/add">Add Stock</a></li>
+     <li><a href="/add">Add Stock</a></li>
     <li><a href="/add1">Add Sale</a></li>
     <!-- <li><a href="/add2">Add Deposit</a></li> -->
     <li><a href="/add3">Register Customer</a></li>
-    
   </ul>
 </nav>
-<div>
-  <h2 style="text-align: center;">STOCK MANAGEMENT</h2>
-</div>
-  
-<table class="styled-table">
-  <thead>
-    <tr>
-      
-      <th scope="col">Item Name</th>
-      <th scope="col">Unit of Measure</th>
-      <th scope="col">Quantity</th>
-      <th scope="col">Item Unit Cost</th>
-      <th scope="col">Selling Price</th>
-      <th scope="col">Supplier Name</th>
-      <th scope="col">Product Specification</th>
-      <th scope="col">Mode of Payment</th>
-    </tr>
-  </thead>
-  <tbody>
-     {% for stock in stock %}
-    <tr>
-     
-     
-      <td>{{stock.item_name}}</td>
-      <td>{{stock.unit}}</td>
-      <td>{{stock.quantity}}</td>
-      <td>{{stock.unit_cost}}</td>
-      <td>{{stock.selling_price}}</td>
-      <td>{{stock.supplier}}</td>
-      <td>{{stock.specification}}</td>
-      <td>{{stock.payment_mode}}</td>
-    </tr>
-    {% endfor %}
-    </tbody>
+
     
-    </table> 
+    <table class="styled-table">
+        <thead>
+            <tr>
+                <th>Customer Name</th>
+                <!-- <th>Phone Number</th>
+                <th>Address</th> -->
+                <th>Category</th>
+                <th>Product Name</th>
+                <th>Quantity</th>
+                <th>Unit Price</th>
+                <th>Total Price</th>
+                <th>Payment Method</th>
+                <!-- <th>Receipt Number</th>
+                <th>Date</th> -->
+                <!-- <th>Name of Sales Person</th> -->
+                 <th>Action</th>
+            </tr>
+            </thead>
+            {% for sale in sale %}
+            <tbody>
+            <tr>
+                
+                <td>{{sale.customer_name}}</td>
+                <!-- <td>{{sale.phone_number}}</td>
+                <td>{{sale.address}}</td> -->
+                <td>{{sale.category}}</td>
+                <td>{{sale.product_name}}</td>
+                <td>{{sale.quantity}}</td>
+                <td>{{sale.unit_price}}</td>
+                <td>{{sale.total_price}}</td>
+                <td>{{sale.payment_method}}</td>
+                <!-- <td>{{sale.receipt_number}}</td>
+                <td>{{sale.date}}</td>
+                <td>{{sale.name_of_sales_person}}</td> -->
+                <td><a style="color: purple; text-decoration: none;" href="{% url 'sale_detail' sale.pk %}">CheckOut</a></td>
+
+             
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
 {% endblock %}

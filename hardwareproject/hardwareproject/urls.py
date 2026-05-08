@@ -20,6 +20,22 @@ from hardwareapp import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # This url takes you to the list of all items in the Stock
     path('',views.home, name='home'),
-    path('add/',views.add, name='add')
+    # This url leads you to the page that let's you add items in the Stock
+    path('add/',views.add, name='add'),
+    # This url takes you to the list of all items in the Sales
+    path('home1/',views.home1, name='home1'),
+    # This url leads you to the page that let's you add items in the Sale
+    path('add1/',views.add1, name='add1'),
+    # This url takes you to the list of deposit made by salary earners 
+    # path('home2/',views.home2, name='home2'),
+    # # This url leads you to the page that let's you edit the salary earners while depositing
+    # path('add2/',views.add2, name='add2'),
+    # This url takes you to the list of all registered salary earners
+    path('home3/',views.home3, name='home3'),
+    # his url leads you to the page that let's you add salary earners with their current deposits
+    path('add3/',views.add3, name='add3'),
+    # a view that will capture an id for a particular sale 
+    path('home1/<int:pk>/',views.sale_detail, name='sale_detail'),
 ]

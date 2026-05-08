@@ -1,16 +1,7 @@
-
 {% extends 'base.html' %}
-
 {% block content %}
 <style>
-  /* Basic Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
-}
-
+    
 /* Navbar Container */
 .navbar {
   display: flex;
@@ -23,8 +14,6 @@
   top: 0;
   z-index: 1000;
   margin-top: 20px;
-  
-
 }
 
 /* Logo Styling */
@@ -65,7 +54,7 @@
   background-color: #059862;
   color: white !important;
 }
-.styled-table {
+      .styled-table {
     border-collapse: collapse; /* Merges adjacent borders into one */
     margin: 25px 0;
     font-size: 0.9em;
@@ -101,55 +90,44 @@
 
 .styled-table tbody tr:hover {
     background-color: #f5f5f5; /* Highlights row on mouse-over */
-}
-
-
+}   
 </style>
-
-<nav class="navbar">
+  <nav class="navbar">
   <div class="logo">Welcome to Nyondo</div>
   <ul class="nav-links">
-    <li><a href="/add">Add Stock</a></li>
+     <li><a href="/add">Add Stock</a></li>
     <li><a href="/add1">Add Sale</a></li>
     <!-- <li><a href="/add2">Add Deposit</a></li> -->
     <li><a href="/add3">Register Customer</a></li>
-    
   </ul>
 </nav>
-<div>
-  <h2 style="text-align: center;">STOCK MANAGEMENT</h2>
-</div>
-  
-<table class="styled-table">
-  <thead>
-    <tr>
-      
-      <th scope="col">Item Name</th>
-      <th scope="col">Unit of Measure</th>
-      <th scope="col">Quantity</th>
-      <th scope="col">Item Unit Cost</th>
-      <th scope="col">Selling Price</th>
-      <th scope="col">Supplier Name</th>
-      <th scope="col">Product Specification</th>
-      <th scope="col">Mode of Payment</th>
-    </tr>
-  </thead>
-  <tbody>
-     {% for stock in stock %}
-    <tr>
-     
-     
-      <td>{{stock.item_name}}</td>
-      <td>{{stock.unit}}</td>
-      <td>{{stock.quantity}}</td>
-      <td>{{stock.unit_cost}}</td>
-      <td>{{stock.selling_price}}</td>
-      <td>{{stock.supplier}}</td>
-      <td>{{stock.specification}}</td>
-      <td>{{stock.payment_mode}}</td>
-    </tr>
-    {% endfor %}
-    </tbody>
     
-    </table> 
+<table class="styled-table">
+    <thead>
+        <tr>
+        <th>Full Name</th>
+        <th>NIN Number</th>
+        <th>Phone Number</th>
+        <th>Address</th>
+        <th>Select Product</th>
+        <th>Amount Deposited</th>
+        <th> Payment Method</th>
+    </thead>
+    </tr>
+    <tbody>
+        {% for register in register %}
+        <tr>
+            <td>{{register.name}}</td>
+            <td>{{register.nin}}</td>
+            <td>{{register.phone}}</td>
+            <td>{{register.address}}</td>
+            <td>{{register.select_product}}</td>
+            <td>{{register.amount}}</td>
+            <td>{{register.payment_method}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
 {% endblock %}

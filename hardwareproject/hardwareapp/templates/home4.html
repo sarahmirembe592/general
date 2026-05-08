@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+{% block content %}
+    
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Customer Credit Scheme Receipt</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            padding: 20px;
+        }
+
+        .receipt-container {
+            width: 400px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #ddd;
+            margin-bottom: 15px;
+        }
+
+        .header h2 {
+            margin: 0;
+        }
+
+        .details, .items {
+            margin-bottom: 15px;
+        }
+
+        .details p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table th, table td {
+            border-bottom: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        .total {
+            text-align: right;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="receipt-container">
+
+    
+    <div class="header">
+<div class="receipt">
+    <p><strong>Temporary Credit Receipt</strong></p>
+</div>
+
+
+
+<div class="details">
+    <p><strong>Receipt No:</strong> {{ entry.id }}</p>
+    <p><strong>Date:</strong> {{ entry.date }}</p>
+    <p><strong>Customer Name:</strong> {{ entry.customer_name }}</p>
+    
+</div>
+
+<!-- ITEMS -->
+<div class="items">
+    <table>
+        <thead>
+            <tr>
+                <th>Item</th>
+                <th>Qty</th>
+                <th>Price</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>{{ entry.product_name }}</td>
+                <td>{{ entry.quantity }}</td>
+                <td>{{ entry.unit_price }}</td>
+                <td>{{ entry.total_price }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+
+<div class="footer">
+    <p>Goods issued on credit</p>
+    <p>Customer signature: ____________</p>
+    <p>Served by: Nyondo Management</p>
+</div>
+<a style="color: purple; text-decoration: none;" href="{% url 'home1'%}">Return to Sales</a>
+
+
+{% endblock %} 
+
+</body>
+</html>
+    
