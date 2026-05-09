@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <title>Customer Credit Scheme Receipt</title>
     <style>
-        body {
+             body {
             font-family: Arial, sans-serif;
             background: #f4f6f8;
             padding: 20px;
@@ -266,7 +266,7 @@
     
     <div class="header">
 <div class="receipt">
-    <p><strong>Customer Receipt</strong></p>
+    <p><strong>Customer Temporary Receipt</strong></p>
 </div>
 
 
@@ -283,19 +283,18 @@
     <table>
         <thead>
             <tr>
-                <th>Item</th>
-                <th>Qty</th>
-                <th>Price</th>
-                <th>Total</th>
+                <th>Amount</th>
+                <th>Date</th>
+                <th>Payment Method</th>
+
             </tr>
         </thead>
 
         <tbody>
             <tr>
-                <td>{{ entry.product_name }}</td>
-                <td>{{ entry.quantity }}</td>
-                <td>{{ entry.unit_price }}</td>
-                <td>{{ entry.total_price }}</td>
+                <td>{{ entry.amount }}</td>
+                <td>{{ entry.date}}</td>
+                <td>{{ entry.payment_method }}</td>
             </tr>
         </tbody>
     </table>
@@ -304,15 +303,14 @@
 
 
 <div class="footer">
-    <p>Once good sold not returnable</p>
+    <p>Goods on Credit</p>
     <p>Customer signature: ____________</p>
     <p>Served by: Nyondo Management</p>
 </div>
-<a style="color: orange; text-decoration: none;" href="{% url 'add1'%}">Return to Add a Sale</a>
+<a style="color: orange; text-decoration: none;" href="{% url 'add3'%}">Return to Register</a>
 
 
 {% endblock %} 
 
 </body>
 </html>
-    

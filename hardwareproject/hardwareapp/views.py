@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from hardwareapp.models import Stock, Sale,Register
+from . forms import *
 
 # Create your views here.
 def home(request):
@@ -19,6 +20,7 @@ def add(request):
         quantity = payload.get('quantity')
         unit_cost = payload.get('unit_cost')
         selling_price = payload.get('selling_price')
+        date = payload.get('date')
         supplier = payload.get('supplier')
         specification = payload.get('specification')
         payment_mode = payload.get('payment_mode')
@@ -30,6 +32,7 @@ def add(request):
         NewStock.quantity = quantity
         NewStock.unit_cost = unit_cost
         NewStock.selling_price = selling_price
+        NewStock.date = date
         NewStock.supplier = supplier
         NewStock.specification = specification
         NewStock.payment_mode = payment_mode
@@ -116,6 +119,7 @@ def add3(request):
         nin = payload.get('nin')
         phone = payload.get('phone')
         address = payload.get('address')
+        date = payload.get('date')
         select_product = payload.get('select_product')
         amount = payload.get('amount')
         payment_method = payload.get('payment_method')
@@ -127,6 +131,7 @@ def add3(request):
         NewRegister.nin = nin
         NewRegister.phone = phone
         NewRegister.address = address
+        NewRegister.date = date
         NewRegister.select_product = select_product
         NewRegister.amount = amount
         NewRegister.payment_method = payment_method
@@ -134,11 +139,49 @@ def add3(request):
         NewRegister.save()
         return redirect('home3')
     return render(request,'add3.html')
-
+# Receipt for sales
 def sale_detail(request,pk):
     # Fetching all specific entry using primary key(pk)
     entry = get_object_or_404(Sale,pk=pk)
     return render(request,'home4.html',{'entry': entry})
+# Receipt for credit scheme
+def customer_detail(request,pk):
+    # Fetching all specific entry using primary key(pk)
+    entry = get_object_or_404(Register,pk=pk)
+    return render(request,'customer_edit.html',{'entry': entry})
+# Editing Stock
+def stock_review(request,pk):
+    # Handling the data from the edit form
+    entry = get_object_or_404(Stock,pk=pk)
+    form = StockeditForm(request.POST, instance = entry)
+
+    if request.method == 'POST':
+       
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+    else:
+        form = StockeditForm(instance = entry)
+    
+    return render(request,'stock_edit.html',{'form': form})
+# edit receipt for customer deposit
+def deposit_review(request,pk):
+    # Handling the data from the edit form
+    entry = get_object_or_404(Register,pk=pk)
+    form = DepositeditForm(request.POST, instance = entry)
+
+    if request.method == 'POST':
+       
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+    else:
+        form = DepositeditForm(instance = entry)
+    
+    return render(request,'deposit_edit.html',{'form': form})
+
+
+    
 
 
 

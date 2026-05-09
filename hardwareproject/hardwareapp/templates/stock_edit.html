@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+ body {
+    font-family: Arial, sans-serif;
+    background: #eef2f7;
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    background: #fff;
+    width: 900px;
+    padding: 20px 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+/* GRID */
+form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px 20px;
+
+}
+
+/* SECTION HEADINGS */
+.section {
+    grid-column: span 2;
+    font-weight: bold;
+    font-size: 13px;
+    color: #0d6efd;
+    margin-top: 10px;
+    
+}
+
+/* INPUT GROUP */
+.col {
+    display: flex;
+    flex-direction: column;
+}
+
+/* LABEL */
+label {
+    font-size: 13px;
+    margin-bottom: 4px;
+}
+
+/* INPUTS */
+input, select {
+    width: 100%;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+/* BUTTON */
+button {
+    grid-column: span 2;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    background: green;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:hover {
+    background: green;
+}
+/* Basic Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+/* Navbar Container */
+.navbar {
+  display: flex;
+  justify-content: space-between; /* Pushes logo and links to opposite sides */
+  align-items: center;
+  padding: 15px 30px;
+  background-color: #333;
+  color: white;
+  position: sticky; /* Keeps navbar at the top while scrolling */
+  top: 0;
+  z-index: 1000;
+  margin-top: 20px;
+}
+
+/* Logo Styling */
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Links Layout */
+.nav-links {
+  list-style: none; /* Removes bullet points */
+  display: flex;
+  gap: 20px; /* Space between links */
+}
+
+/* Individual Link Styling */
+.nav-links a {
+  text-decoration: none;
+  color: white;
+  font-size: 18px;
+  transition: color 0.3s ease;
+}
+
+/* Hover Effect */
+.nav-links a:hover {
+  color: #04AA6D; /* Changes color on hover */
+}
+
+/* Action Button (Optional) */
+.cta {
+  background-color: #04AA6D;
+  padding: 8px 15px;
+  border-radius: 5px;
+}
+
+.cta:hover {
+  background-color: #059862;
+  color: white !important;
+}
+</style>
+   <nav class="navbar">
+  <div class="logo">Welcome to Nyondo</div>
+  <ul class="nav-links">
+     <li><a href="/add">Add Stock</a></li>
+    <li><a href="/">View Stock</a></li>
+    <!-- <li><a href="/add2">Add Deposit</a></li> -->
+    
+    
+  </ul>
+</nav>
+
+<h2>Edit Stock</h2>
+<form method="POST">
+        {% csrf_token %}
+        <!-- Getting our form with the fields we want -->
+        {{form.as_p}}
+
+        <!-- Submit -->
+        <button type="submit">Save Stock</button>
+
+    </form>
+    
+{% endblock %}

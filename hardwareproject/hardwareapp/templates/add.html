@@ -1,144 +1,215 @@
 {% extends 'base.html' %}
 {% block content %}
 
-    <style>
- body {
-    font-family: Arial, sans-serif;
-    background: #eef2f7;
-    margin: 0;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+<style>
+     :root {
+      --green:       #1a7a4a;
+      --green-dark:  #145c37;
+      --green-light: #e8f5ee;
+      --gold:        #c9a84c;
+      --bg:          #f0f4f2;
+      --white:       #ffffff;
+      --text:        #1c2b22;
+      --muted:       #6b8070;
+      --border:      #cde0d5;
+      --shadow:      0 6px 32px rgba(26,122,74,.11);
+    }
+ 
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+ 
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+ 
+    /* ── NAVBAR ── */
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2.5rem;
+      height: 68px;
+      background: var(--green);
+      box-shadow: 0 2px 12px rgba(0,0,0,.15);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+ 
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem;
+      color: var(--white);
+    }
+ 
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: .5rem;
+    }
+ 
+    .nav-links a {
+      text-decoration: none;
+      color: rgba(255,255,255,.85);
+      font-size: .9rem;
+      font-weight: 500;
+      padding: .45rem 1rem;
+      border-radius: 6px;
+      transition: background .2s, color .2s;
+    }
+ 
+    .nav-links a:hover {
+      background: rgba(255,255,255,.15);
+      color: #fff;
+    }
+ 
+    /* ── CONTAINER = the white card ── */
+    .container {
+      background: var(--white);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      width: 100%;
+      max-width: 680px;
+      margin: 2.5rem auto 4rem;
+      padding: 0 0 2.2rem;
+      overflow: hidden;
+      animation: slideUp .45s ease both;
+    }
+ 
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+ 
+    /* gold-green top bar */
+    .container::before {
+      content: '';
+      display: block;
+      height: 6px;
+      background: linear-gradient(90deg, var(--green) 0%, var(--gold) 100%);
+    }
+ 
+    /* ── PAGE HEADING ── */
+    .container h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--green-dark);
+      padding: 1.6rem 2.2rem .2rem;
+      margin-bottom: 1rem;
+    }
+ 
+    /* ── FORM ── */
+    form {
+      padding: 0 2.2rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      align-items: start;
+    }
+ 
+    /* ── SECTION HEADINGS ── */
+    .section {
+      grid-column: 1 / -1;          /* full width */
+      font-size: .72rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--white);
+      background: var(--green);
+      padding: .45rem 1rem;
+      border-radius: 6px;
+      margin-top: .5rem;
+    }
+ 
+    /* ── FIELD COLUMNS ── */
+    .col {
+      display: flex;
+      flex-direction: column;
+      gap: .35rem;
+    }
+ 
+    label {
+      font-size: .75rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: .6px;
+      color: var(--muted);
+    }
+ 
+    input[type="text"],
+    input[type="number"],
+    input[type="datetime-local"],
+    select {
+      width: 100%;
+      padding: .72rem 1rem;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: .92rem;
+      color: var(--text);
+      background: var(--green-light);
+      outline: none;
+      transition: border-color .2s, box-shadow .2s, background .2s;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+ 
+    /* dropdown arrow */
+    select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%236b8070' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      background-color: var(--green-light);
+      padding-right: 2.5rem;
+    }
+ 
+    input:focus,
+    select:focus {
+      border-color: var(--green);
+      background: var(--white);
+      box-shadow: 0 0 0 3px rgba(26,122,74,.12);
+    }
+ 
+    input::placeholder { color: #a0b8aa; }
+ 
+    /* ── SUBMIT BUTTON — full width ── */
+    button[type="submit"] {
+      grid-column: 1 / -1;
+      width: 100%;
+      padding: .9rem;
+      margin-top: .6rem;
+      background: var(--green);
+      color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 500;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      letter-spacing: .3px;
+      transition: background .2s, transform .15s, box-shadow .2s;
+      box-shadow: 0 4px 14px rgba(26,122,74,.30);
+    }
+ 
+    button[type="submit"]:hover {
+      background: var(--green-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(26,122,74,.35);
+    }
+ 
+    button[type="submit"]:active { transform: translateY(0); }
+ 
+    /* ── RESPONSIVE ── */
+    @media (max-width: 560px) {
+      .navbar { padding: 0 1.2rem; }
+      .container { margin: 1.5rem 1rem 3rem; }
+      .container h2 { padding: 1.3rem 1.4rem .2rem; }
+      form { padding: 0 1.4rem; grid-template-columns: 1fr; }
+    }
 
-.container {
-    background: #fff;
-    width: 900px;
-    padding: 20px 30px;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-}
 
-h2 {
-    text-align: center;
-    margin-bottom: 10px;
-}
-
-/* GRID */
-form {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px 20px;
-}
-
-/* SECTION HEADINGS */
-.section {
-    grid-column: span 2;
-    font-weight: bold;
-    font-size: 13px;
-    color: #0d6efd;
-    margin-top: 10px;
-    
-}
-
-/* INPUT GROUP */
-.col {
-    display: flex;
-    flex-direction: column;
-}
-
-/* LABEL */
-label {
-    font-size: 13px;
-    margin-bottom: 4px;
-}
-
-/* INPUTS */
-input, select {
-    width: 100%;
-    padding: 8px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    font-size: 14px;
-}
-
-/* BUTTON */
-button {
-    grid-column: span 2;
-    padding: 12px;
-    border: none;
-    border-radius: 6px;
-    background: green;
-    color: white;
-    font-size: 15px;
-    cursor: pointer;
-    margin-top: 10px;
-}
-
-button:hover {
-    background: green;
-}
-/* Basic Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
-}
-
-/* Navbar Container */
-.navbar {
-  display: flex;
-  justify-content: space-between; /* Pushes logo and links to opposite sides */
-  align-items: center;
-  padding: 15px 30px;
-  background-color: #333;
-  color: white;
-  position: sticky; /* Keeps navbar at the top while scrolling */
-  top: 0;
-  z-index: 1000;
-  margin-top: 20px;
-}
-
-/* Logo Styling */
-.logo {
-  font-size: 24px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-/* Links Layout */
-.nav-links {
-  list-style: none; /* Removes bullet points */
-  display: flex;
-  gap: 20px; /* Space between links */
-}
-
-/* Individual Link Styling */
-.nav-links a {
-  text-decoration: none;
-  color: white;
-  font-size: 18px;
-  transition: color 0.3s ease;
-}
-
-/* Hover Effect */
-.nav-links a:hover {
-  color: #04AA6D; /* Changes color on hover */
-}
-
-/* Action Button (Optional) */
-.cta {
-  background-color: #04AA6D;
-  padding: 8px 15px;
-  border-radius: 5px;
-}
-
-.cta:hover {
-  background-color: #059862;
-  color: white !important;
-}
 
     </style>
 </head>
@@ -150,7 +221,7 @@ button:hover {
     <li><a href="/">Stock</a></li>
     <li><a href="/home1">Sales</a></li>
     <!-- <li><a href="/home2">Home2</a></li> -->
-    <li><a href="/home3">customers</a></li>
+    <li><a href="/home3">customer's List</a></li>
     
   </ul>
 </nav>
@@ -198,6 +269,11 @@ button:hover {
 <div class="col">
     <label>Item Selling Price</label>
     <input type="number" name="selling_price" required>
+    
+</div>
+<div class="col">
+    <label>Date</label>
+    <input type="datetime-local" name="date" required>
     
 </div>
 

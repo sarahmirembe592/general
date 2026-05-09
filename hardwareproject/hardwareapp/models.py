@@ -8,8 +8,8 @@ class Stock(models.Model):
     quantity = models.IntegerField()
     unit_cost = models.IntegerField()
     selling_price = models.IntegerField()
-    date = models.DateTimeField(auto_now_add=True)
-    supplier = models.TextField()
+    date = models.CharField(max_length=255)
+    supplier = models.CharField(max_length=255)
     specification = models.CharField(max_length=255)
     payment_mode = models.CharField(max_length=255)
 
@@ -38,17 +38,12 @@ class Sale(models.Model):
     def __str__(self):
         return self.item_name  
 
-# class Deposit(models.Model):
-#     customer_nin = models.CharField(max_length=255)
-#     select_product = models.CharField(max_length=255)
-#     amount = models.IntegerField()
-#     date = models.DateTimeField(auto_now_add=True)
-
 class Register(models.Model):
     name = models.CharField(max_length=255)
     nin = models.CharField(max_length=255)
     phone = models.IntegerField()
     address = models.CharField(max_length=255)
+    date = models.CharField(max_length=255,null=True)
     select_product = models.CharField(max_length=255)
     amount = models.IntegerField()
     payment_method = models.CharField(max_length=255)

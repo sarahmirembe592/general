@@ -1,103 +1,203 @@
 {% extends 'base.html' %}
 {% block content %}
 <style>
-      /* Basic Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
-}
-
-/* Navbar Container */
-.navbar {
-  display: flex;
-  justify-content: space-between; /* Pushes logo and links to opposite sides */
-  align-items: center;
-  padding: 15px 30px;
-  background-color: #333;
-  color: white;
-  position: sticky; /* Keeps navbar at the top while scrolling */
-  top: 0;
-  z-index: 1000;
-  margin-top: 20px;
-}
-
-/* Logo Styling */
-.logo {
-  font-size: 24px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-/* Links Layout */
-.nav-links {
-  list-style: none; /* Removes bullet points */
-  display: flex;
-  gap: 20px; /* Space between links */
-}
-
-/* Individual Link Styling */
-.nav-links a {
-  text-decoration: none;
-  color: white;
-  font-size: 18px;
-  transition: color 0.3s ease;
-}
-
-/* Hover Effect */
-.nav-links a:hover {
-  color: #04AA6D; /* Changes color on hover */
-}
-
-/* Action Button (Optional) */
-.cta {
-  background-color: #04AA6D;
-  padding: 8px 15px;
-  border-radius: 5px;
-}
-
-.cta:hover {
-  background-color: #059862;
-  color: white !important;
-}
+   :root {
+      --green:       #1a7a4a;
+      --green-dark:  #145c37;
+      --green-light: #e8f5ee;
+      --gold:        #c9a84c;
+      --gold-dark:   #b8923d;
+      --bg:          #f0f4f2;
+      --white:       #ffffff;
+      --text:        #1c2b22;
+      --muted:       #6b8070;
+      --border:      #cde0d5;
+      --shadow:      0 6px 32px rgba(26,122,74,.11);
+    }
+ 
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+ 
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+ 
+    /* ── NAVBAR ── */
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2.5rem;
+      height: 68px;
+      background: var(--green);
+      box-shadow: 0 2px 12px rgba(0,0,0,.15);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+ 
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem;
+      color: var(--white);
+      letter-spacing: .3px;
+    }
+ 
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: .5rem;
+    }
+ 
+    .nav-links a {
+      text-decoration: none;
+      color: rgba(255,255,255,.85);
+      font-size: .9rem;
+      font-weight: 500;
+      padding: .45rem 1rem;
+      border-radius: 6px;
+      transition: background .2s, color .2s;
+    }
+ 
+    .nav-links a:hover {
+      background: rgba(255,255,255,.15);
+      color: #fff;
+    }
+ 
+    /* ── PAGE HEADING ── */
+    .page-title {
+      text-align: center;
+      margin: 2.2rem 0 1.6rem;
+    }
+ 
+    .page-title h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.7rem;
+      color: var(--green-dark);
+      letter-spacing: .3px;
+    }
+ 
+    .page-title h2::after {
+      content: '';
+      display: block;
+      width: 55px;
+      height: 3px;
+      background: var(--gold);
+      border-radius: 2px;
+      margin: .5rem auto 0;
+    }
+ 
+    /* ── TABLE WRAPPER ── */
+    .table-wrapper {
+      margin: 0 2rem 4rem;
+      background: var(--white);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      animation: slideUp .45s ease both;
+    }
+ 
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+ 
+    /* top accent bar */
+    .table-wrapper::before {
+      content: '';
+      display: block;
+      height: 6px;
+      background: linear-gradient(90deg, var(--green) 0%, var(--gold) 100%);
+    }
+ 
+    /* ── TABLE ── */
     .styled-table {
-    border-collapse: collapse; /* Merges adjacent borders into one */
-    margin: 25px 0;
-    font-size: 0.9em;
-    font-family: sans-serif;
-    min-width: 400px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-    justify-content: center;
-    margin-left: 190px;
-}
-
-.styled-table thead tr {
-    background-color: #009879; /* Custom header color */
-    color: #ffffff;
-    text-align: left;
-}
-
-.styled-table th,
-.styled-table td {
-    padding: 12px 15px; /* Adds space inside cells */
-}
-
-.styled-table tbody tr {
-    border-bottom: 1px solid #dddddd; /* Adds thin lines between rows */
-}
-
-.styled-table tbody tr:nth-of-type(even) {
-    background-color: #f3f3f3; /* Zebra striping for readability */
-}
-
-.styled-table tbody tr:last-of-type {
-    border-bottom: 2px solid #009879; /* Bottom accent border */
-}
-
-.styled-table tbody tr:hover {
-    background-color: #f5f5f5; /* Highlights row on mouse-over */
-}
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .88rem;
+    }
+ 
+    .styled-table thead tr {
+      background: var(--green);
+    }
+ 
+    .styled-table thead th {
+      color: #fff;
+      font-size: .72rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: .7px;
+      padding: .85rem 1.1rem;
+      text-align: left;
+      white-space: nowrap;
+    }
+ 
+    .styled-table tbody tr {
+      border-bottom: 1px solid var(--border);
+      transition: background .15s;
+    }
+ 
+    .styled-table tbody tr:nth-of-type(even) {
+      background: var(--green-light);
+    }
+ 
+    .styled-table tbody tr:last-of-type {
+      border-bottom: none;
+    }
+ 
+    .styled-table tbody tr:hover {
+      background: #d4eddf;
+    }
+ 
+    .styled-table tbody td {
+      padding: .8rem 1.1rem;
+      color: var(--text);
+      font-size: .88rem;
+      vertical-align: middle;
+    }
+ 
+    /* number columns monospace */
+    .styled-table tbody td:nth-child(3),
+    .styled-table tbody td:nth-child(4),
+    .styled-table tbody td:nth-child(5) {
+      font-family: 'DM Mono', monospace;
+      font-size: .84rem;
+    }
+ 
+    /* ── EDIT LINK ── */
+    .edit-link {
+      display: inline-block;
+      text-decoration: none;
+      color: var(--white);
+      background: var(--gold);
+      padding: .3rem .85rem;
+      border-radius: 6px;
+      font-size: .78rem;
+      font-weight: 500;
+      letter-spacing: .3px;
+      transition: background .2s, transform .15s;
+      white-space: nowrap;
+    }
+ 
+    .edit-link:hover {
+      background: var(--gold-dark);
+      transform: translateY(-1px);
+    }
+ 
+    /* ── SCROLL on small screens ── */
+    .scroll-x {
+      overflow-x: auto;
+    }
+ 
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .navbar { padding: 0 1.2rem; }
+      .table-wrapper { margin: 0 .8rem 3rem; }
+      .styled-table thead th,
+      .styled-table tbody td { padding: .65rem .75rem; }
+    }
 
 
 </style>
@@ -116,17 +216,12 @@
         <thead>
             <tr>
                 <th>Customer Name</th>
-                <!-- <th>Phone Number</th>
-                <th>Address</th> -->
                 <th>Category</th>
                 <th>Product Name</th>
                 <th>Quantity</th>
                 <th>Unit Price</th>
                 <th>Total Price</th>
                 <th>Payment Method</th>
-                <!-- <th>Receipt Number</th>
-                <th>Date</th> -->
-                <!-- <th>Name of Sales Person</th> -->
                  <th>Action</th>
             </tr>
             </thead>
@@ -135,18 +230,13 @@
             <tr>
                 
                 <td>{{sale.customer_name}}</td>
-                <!-- <td>{{sale.phone_number}}</td>
-                <td>{{sale.address}}</td> -->
                 <td>{{sale.category}}</td>
                 <td>{{sale.product_name}}</td>
                 <td>{{sale.quantity}}</td>
                 <td>{{sale.unit_price}}</td>
                 <td>{{sale.total_price}}</td>
-                <td>{{sale.payment_method}}</td>
-                <!-- <td>{{sale.receipt_number}}</td>
-                <td>{{sale.date}}</td>
-                <td>{{sale.name_of_sales_person}}</td> -->
-                <td><a style="color: purple; text-decoration: none;" href="{% url 'sale_detail' sale.pk %}">CheckOut</a></td>
+                <td>{{sale.payment_method}}</td><td><a style="color: orange; text-decoration: none;" href="{% url 'sale_detail' sale.pk %}">CheckOut</a></td>
+                
 
              
             </tr>
