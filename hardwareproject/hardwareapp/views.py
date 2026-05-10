@@ -174,9 +174,11 @@ def deposit_review(request,pk):
        
         if form.is_valid():
             form.save()
-            return redirect('home')
+            return redirect('home3')
     else:
         form = DepositeditForm(instance = entry)
+
+        print("something went wrong")
     
     return render(request,'deposit_edit.html',{'form': form})
 

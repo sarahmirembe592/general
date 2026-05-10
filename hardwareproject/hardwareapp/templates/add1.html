@@ -2,29 +2,34 @@
 {% block content %}
 
 <style>
-      :root {
-      --green:       #1a7a4a;
-      --green-dark:  #145c37;
-      --green-light: #e8f5ee;
-      --gold:        #c9a84c;
-      --bg:          #f0f4f2;
-      --white:       #ffffff;
-      --text:        #1c2b22;
-      --muted:       #6b8070;
-      --border:      #cde0d5;
-      --shadow:      0 6px 32px rgba(26,122,74,.11);
-    }
- 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
- 
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-    }
- 
-    /* ── NAVBAR ── */
+  :root {
+    --green:       #1a7a4a;
+    --green-dark:  #145c37;
+    --green-light: #e8f5ee;
+    --gold:        #c9a84c;
+    --bg:          #f0f4f2;
+    --white:       #ffffff;
+    --text:        #1c2b22;
+    --muted:       #6b8070;
+    --border:      #cde0d5;
+    --shadow:      0 6px 32px rgba(26,122,74,.11);
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg) !important;
+    color: var(--text);
+  }
+
+  /* ── PAGE TITLE h3 ── */
+  h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--green-dark);
+    padding: 1.8rem 2.2rem 0.4rem;
+    margin: 0;
+    text-align: left;
+  }
     .navbar {
       display: flex;
       align-items: center;
@@ -42,7 +47,6 @@
       font-family: 'Playfair Display', serif;
       font-size: 1.35rem;
       color: var(--white);
-      letter-spacing: .3px;
     }
  
     .nav-links {
@@ -66,167 +70,145 @@
       color: #fff;
     }
  
-    /* ── PAGE TITLE ── */
-    h3 {
-      font-family: 'Playfair Display', serif;
-      text-align: center;
-      margin-top: 2.2rem;
-      margin-bottom: 1.8rem;
-      font-size: 1.25rem;
-      color: var(--green-dark);
-      letter-spacing: .3px;
-    }
- 
-    h3::after {
-      content: '';
-      display: block;
-      width: 50px;
-      height: 3px;
-      background: var(--gold);
-      border-radius: 2px;
-      margin: .5rem auto 0;
-    }
- 
-    /* ── CONTAINER ── */
-    .container {
-      display: flex;
-      justify-content: center;
-      padding: 0 1.5rem 4rem;
-    }
- 
-    /* ── CARD ── */
-    .card {
-      background: var(--white);
-      border-radius: 18px;
-      box-shadow: var(--shadow);
-      width: 100%;
-      max-width: 580px;
-      overflow: hidden;
-      animation: slideUp .45s ease both;
-    }
- 
-    @keyframes slideUp {
-      from { opacity: 0; transform: translateY(28px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
- 
-    /* gold-green top bar */
-    .card::before {
-      content: '';
-      display: block;
-      height: 6px;
-      background: linear-gradient(90deg, var(--green) 0%, var(--gold) 100%);
-    }
- 
-    .card h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.45rem;
-      color: var(--green-dark);
-      padding: 1.8rem 2.2rem .2rem;
-    }
- 
-    /* ── FORM ── */
-    form {
-      padding: 1.4rem 2.2rem 2.2rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
- 
-    label {
-      display: block;
-      font-size: .75rem;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: .6px;
-      color: var(--muted);
-      margin-bottom: .3rem;
-    }
- 
-    input[type="text"],
-    input[type="tel"],
-    input[type="number"],
-    input[type="datetime-local"],
-    select {
-      width: 100%;
-      padding: .75rem 1rem;
-      border: 1.5px solid var(--border);
-      border-radius: 10px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: .95rem;
-      color: var(--text);
-      background: var(--green-light);
-      outline: none;
-      transition: border-color .2s, box-shadow .2s, background .2s;
-      appearance: none;
-      -webkit-appearance: none;
-    }
- 
-    /* custom arrow for selects */
-    select {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%236b8070' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 1rem center;
-      padding-right: 2.5rem;
-    }
- 
-    input:focus,
-    select:focus {
-      border-color: var(--green);
-      background: var(--white);
-      box-shadow: 0 0 0 3px rgba(26,122,74,.12);
-    }
- 
-    input::placeholder { color: #a0b8aa; }
- 
-    /* ── TWO-COLUMN GRID for some fields ── */
-    .field-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-    }
- 
-    /* ── SUBMIT BUTTON ── */
-    button[type="submit"] {
-      width: 100%;
-      padding: .9rem;
-      margin-top: .4rem;
-      background: var(--green);
-      color: #fff;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 1rem;
-      font-weight: 500;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      letter-spacing: .3px;
-      transition: background .2s, transform .15s, box-shadow .2s;
-      box-shadow: 0 4px 14px rgba(26,122,74,.30);
-    }
- 
-    button[type="submit"]:hover {
-      background: var(--green-dark);
-      transform: translateY(-1px);
-      box-shadow: 0 6px 18px rgba(26,122,74,.35);
-    }
- 
-    button[type="submit"]:active { transform: translateY(0); }
- 
-    /* ── RESPONSIVE ── */
-    @media (max-width: 520px) {
-      .navbar { padding: 0 1.2rem; }
-      .card h2 { padding: 1.4rem 1.4rem .2rem; }
-      form { padding: 1.2rem 1.4rem 1.8rem; }
-      .field-row { grid-template-columns: 1fr; }
-    }
 
+  /* ── OUTER CONTAINER becomes the card ── */
+  .container-fluid {
+    max-width: 760px !important;
+    margin: 2.5rem auto 4rem !important;
+    background: var(--white) !important;
+    border-radius: 18px !important;
+    box-shadow: var(--shadow) !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    animation: slideUp .45s ease both;
+  }
 
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* gold-green top bar */
+  .container-fluid::before {
+    content: '';
+    display: block;
+    height: 6px;
+    background: linear-gradient(90deg, var(--green) 0%, var(--gold) 100%);
+  }
+
+  /* ── FORM padding ── */
+  .container-fluid form {
+    padding: 0 2.2rem 2.2rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1rem !important;
+  }
+
+  /* ── <p> tags become green section header bars ── */
+  .container-fluid form > p {
+    background: var(--green) !important;
+    color: #fff !important;
+    font-size: .78rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 1.2px !important;
+    text-transform: uppercase !important;
+    padding: .65rem 1rem !important;
+    border-radius: 8px !important;
+    margin: .4rem 0 0 !important;
+  }
+
+  /* ── LABELS ── */
+  .container-fluid label {
+    display: block !important;
+    font-size: .72rem !important;
+    font-weight: 500 !important;
+    text-transform: uppercase !important;
+    letter-spacing: .6px !important;
+    color: var(--muted) !important;
+    margin-bottom: .35rem !important;
+  }
+
+  /* ── INPUTS — override Bootstrap form-control ── */
+  .container-fluid .form-control {
+    background: var(--green-light) !important;
+    border: 1.5px solid var(--border) !important;
+    border-radius: 10px !important;
+    color: var(--text) !important;
+    font-family: 'DM Sans', sans-serif !important;
+    font-size: .95rem !important;
+    padding: .75rem 1rem !important;
+    box-shadow: none !important;
+    transition: border-color .2s, box-shadow .2s, background .2s !important;
+  }
+
+  .container-fluid .form-control:focus {
+    border-color: var(--green) !important;
+    background: var(--white) !important;
+    box-shadow: 0 0 0 3px rgba(26,122,74,.12) !important;
+  }
+
+  .container-fluid .form-control::placeholder {
+    color: #a0b8aa !important;
+  }
+
+  /* ── SELECTS — override Bootstrap form-select ── */
+  .container-fluid .form-select {
+    background-color: var(--green-light) !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%236b8070' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 1rem center !important;
+    border: 1.5px solid var(--border) !important;
+    border-radius: 10px !important;
+    color: var(--text) !important;
+    font-family: 'DM Sans', sans-serif !important;
+    font-size: .95rem !important;
+    padding: .75rem 2.5rem .75rem 1rem !important;
+    box-shadow: none !important;
+    transition: border-color .2s, box-shadow .2s, background .2s !important;
+  }
+
+  .container-fluid .form-select:focus {
+    border-color: var(--green) !important;
+    background-color: var(--white) !important;
+    box-shadow: 0 0 0 3px rgba(26,122,74,.12) !important;
+  }
+
+  /* ── SUBMIT BUTTON — override Bootstrap btn-primary ── */
+  .container-fluid .btn.btn-primary {
+    width: 100% !important;
+    padding: .9rem !important;
+    background: var(--green) !important;
+    border: none !important;
+    border-radius: 10px !important;
+    font-family: 'DM Sans', sans-serif !important;
+    font-size: 1rem !important;
+    font-weight: 500 !important;
+    letter-spacing: .3px !important;
+    box-shadow: 0 4px 14px rgba(26,122,74,.30) !important;
+    transition: background .2s, transform .15s, box-shadow .2s !important;
+  }
+
+  .container-fluid .btn.btn-primary:hover {
+    background: var(--green-dark) !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 6px 18px rgba(26,122,74,.35) !important;
+  }
+
+  .container-fluid .btn.btn-primary:active {
+    transform: translateY(0) !important;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    .container-fluid form { padding: 0 1.2rem 1.8rem !important; }
+    h3 { padding: 1.4rem 1.2rem .2rem !important; }
+  }
 </style>
   </head>
 
 <body> 
      <nav class="navbar">
-  <div class="logo">Welcome to Nyondo</div>
+  <div class="logo">Nyondo Management System</div>
   <ul class="nav-links">
     <li><a href="/">Stock</a></li>
     <li><a href="/home1">Sales</a></li>
@@ -235,7 +217,7 @@
   </ul>
 </nav>
 <div class="container-fluid">
-  <h1><i class="fa-solid fa-wrench"></i>Nyondo General Hardware Limited</h1>
+  
   <h3>Sales Registration Form</h3>
   <form method="POST" action="{% url 'add1'%}" class="row g-3">
     {% csrf_token %}

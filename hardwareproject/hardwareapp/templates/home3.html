@@ -200,7 +200,7 @@
     }   
 </style>
   <nav class="navbar">
-  <div class="logo">Welcome to Nyondo</div>
+  <div class="logo">Nyondo Management System</div>
   <ul class="nav-links">
      <li><a href="/add">Add Stock</a></li>
     <li><a href="/add1">Add Sale</a></li>
@@ -208,6 +208,9 @@
     <li><a href="/add3">Register Customer</a></li>
   </ul>
 </nav>
+<div>
+  <h2 style="text-align: center;">ALL CUSTOMERS IN SCHEME</h2>
+</div>
     
 <table class="styled-table">
     <thead>
@@ -236,8 +239,8 @@
             <td>{{register.amount}}</td>
             <td>{{register.payment_method}}</td>
             <!-- <td>{{sale.payment_method}}</td> -->
-            <td><a style="color: orange; text-decoration: none;" href="{% url 'customer_detail' register.pk %}">Issue</a></td>  
-            <td><a style="color: orange; text-decoration: none;" href="{% url 'deposit_review' register.pk %}">Make</a></td>
+            <td><a style="color: #ffffff; text-decoration: none; font-size: .95rem; font-weight: 600; letter-spacing: .3px; padding: .35rem .9rem; background: #1a7a4a; border-radius: 6px; display: inline-block;" href="{% url 'customer_detail' register.pk %}">Issue</a></td>  
+            <td><a style="color: #ffffff; text-decoration: none; font-size: .95rem; font-weight: 600; letter-spacing: .3px; padding: .35rem .9rem; background: #c9a84c; border-radius: 6px; display: inline-block;" href="{% url 'deposit_review' register.pk %}">Make</a></td>
         </tr>
         {% endfor %}
     </tbody>
