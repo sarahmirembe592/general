@@ -40,4 +40,6 @@ urlpatterns = [
     # This url leads you to the customer temp receipt
     path('home3/<int:pk>/edit/',views.customer_detail, name='customer_detail'),
 
+    # path('dashboard/',views.dashboard, name='dashboard'),
+
 ]

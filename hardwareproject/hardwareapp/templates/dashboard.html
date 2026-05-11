@@ -1,5 +1,556 @@
 {% extends 'base.html' %}
 {% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nyondo General Hardware</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --green:        #1a7a4a;
+      --green-dark:   #145c37;
+      --green-light:  #e8f5ee;
+      --green-dim:    rgba(26,122,74,.08);
+      --gold:         #c9a84c;
+      --bg:           #f0f4f2;
+      --white:        #ffffff;
+      --text:         #1c2b22;
+      --muted:        #6b8070;
+      --border:       #cde0d5;
+      --shadow:       0 6px 32px rgba(26,122,74,.11);
+      --radius:       16px;
+    }
 
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── NAVBAR ── */
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2.5rem;
+      height: 68px;
+      background: var(--green);
+      box-shadow: 0 2px 12px rgba(0,0,0,.15);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.45rem;
+      letter-spacing: 3px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-icon {
+      width: 36px; height: 36px;
+      background: var(--gold);
+      border-radius: 8px;
+      display: grid; place-items: center;
+      font-size: 18px;
+    }
+
+    .logo span { color: var(--gold); }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: .4rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: rgba(255,255,255,.8);
+      font-size: .88rem;
+      font-weight: 500;
+      padding: .45rem 1rem;
+      border-radius: 8px;
+      border: 1px solid transparent;
+      transition: all .2s;
+    }
+
+    .nav-links a:hover {
+      background: rgba(255,255,255,.15);
+      color: #fff;
+    }
+
+    /* ── PAGE WRAPPER ── */
+    .page-wrap {
+      flex: 1;
+      padding: 2.5rem 1.5rem 4rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* ── HERO HEADER ── */
+    header {
+      text-align: center;
+      margin-bottom: 2.8rem;
+      animation: fadeUp .4s ease both;
+    }
+
+    header h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      letter-spacing: 4px;
+      color: var(--green-dark);
+      line-height: 1;
+    }
+
+    header h1 span { color: var(--gold); }
+
+    header p {
+      color: var(--muted);
+      font-size: .88rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-top: 6px;
+    }
+
+    .divider {
+      width: 60px; height: 3px;
+      background: linear-gradient(90deg, var(--green), var(--gold));
+      border-radius: 2px;
+      margin: 14px auto 0;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── CARDS GRID ── */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      width: 100%;
+      max-width: 980px;
+    }
+
+    /* ── SINGLE CARD ── */
+    .card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      box-shadow: var(--shadow);
+      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+      animation: fadeUp .45s ease both;
+    }
+
+    .card:nth-child(1) { animation-delay: .05s; }
+    .card:nth-child(2) { animation-delay: .12s; }
+    .card:nth-child(3) { animation-delay: .19s; }
+
+    /* top colour stripe */
+    .card-stripe {
+      height: 4px;
+      width: 100%;
+    }
+
+    .card--stock   .card-stripe { background: linear-gradient(90deg, var(--green), var(--gold)); }
+    .card--sales   .card-stripe { background: linear-gradient(90deg, var(--gold), #e07a3a); }
+    .card--customer .card-stripe { background: linear-gradient(90deg, #3aaa8a, var(--green)); }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 48px rgba(26,122,74,.18);
+      border-color: rgba(26,122,74,.35);
+    }
+
+    /* ── CARD BODY ── */
+    .card-body {
+      padding: 28px 28px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      flex: 1;
+    }
+
+    /* icon badge */
+    .card-icon {
+      width: 54px; height: 54px;
+      border-radius: 14px;
+      display: grid; place-items: center;
+      font-size: 24px;
+      background: var(--green-light);
+      border: 1px solid var(--border);
+    }
+
+    .card--sales   .card-icon { background: #fff5e8; border-color: #f0d9b0; }
+    .card--customer .card-icon { background: #e8f5f2; border-color: #b0d9ce; }
+
+    .card-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem;
+      letter-spacing: 2.5px;
+      color: var(--green-dark);
+      line-height: 1;
+    }
+
+    .card--sales   .card-title { color: #8c4a1e; }
+    .card--customer .card-title { color: #1a6a5a; }
+
+    .card-title span { color: var(--gold); }
+
+    .card-desc {
+      font-size: .87rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* stat pills */
+    .card-stats {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+
+    .stat-pill {
+      background: var(--green-light);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 5px 12px;
+      font-size: .77rem;
+      color: var(--muted);
+    }
+
+    .stat-pill strong {
+      color: var(--green-dark);
+      margin-right: 3px;
+    }
+
+    .card--sales   .stat-pill { background: #fff5e8; border-color: #f0d9b0; }
+    .card--sales   .stat-pill strong { color: #8c4a1e; }
+    .card--customer .stat-pill { background: #e8f5f2; border-color: #b0d9ce; }
+    .card--customer .stat-pill strong { color: #1a6a5a; }
+
+    /* CTA footer */
+    .card-footer {
+      padding: 14px 28px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--green-light);
+    }
+
+    .card--sales   .card-footer { background: #fff5e8; border-color: #f0d9b0; }
+    .card--customer .card-footer { background: #e8f5f2; border-color: #b0d9ce; }
+
+    .card-cta {
+      font-size: .8rem;
+      font-weight: 600;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--green);
+    }
+
+    .card--sales   .card-cta { color: #c97a3a; }
+    .card--customer .card-cta { color: #1a8a70; }
+
+    .cta-arrow {
+      width: 30px; height: 30px;
+      border-radius: 8px;
+      background: var(--green);
+      display: grid; place-items: center;
+      transition: transform .2s, background .2s;
+    }
+
+    .card--sales   .cta-arrow { background: #c97a3a; }
+    .card--customer .cta-arrow { background: #1a8a70; }
+
+    .card:hover .cta-arrow { transform: translateX(4px); }
+
+    .cta-arrow svg { stroke: #fff; }
+
+    /* ── PAGE VIEWS ── */
+    .page {
+      display: none;
+      width: 100%;
+      max-width: 980px;
+      animation: fadeUp .35s ease forwards;
+    }
+
+    .page.active { display: block; }
+
+    /* ── BACK BUTTON ── */
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      border-radius: 10px;
+      padding: 10px 18px;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      font-size: .85rem;
+      box-shadow: var(--shadow);
+      transition: all .2s;
+      margin-bottom: 28px;
+    }
+
+    .back-btn:hover { border-color: var(--green); color: var(--green); }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .page-header .page-icon {
+      width: 58px; height: 58px;
+      border-radius: 16px;
+      display: grid; place-items: center;
+      font-size: 26px;
+      background: var(--green-light);
+      border: 1px solid var(--border);
+    }
+
+    .page-header h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.1rem;
+      letter-spacing: 2.5px;
+      color: var(--green-dark);
+      line-height: 1;
+    }
+
+    .page-header p { color: var(--muted); font-size: .85rem; margin-top: 4px; }
+
+    /* ── SUMMARY ROW ── */
+    .summary-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .sum-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 16px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .sum-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--green), var(--gold));
+    }
+
+    .sum-card .label {
+      font-size: .72rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .sum-card .value {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      letter-spacing: 1px;
+      color: var(--green-dark);
+      margin-top: 4px;
+    }
+
+    /* ── TABLE ── */
+    .table-wrap {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .88rem;
+    }
+
+    thead tr { background: var(--green-light); }
+
+    th {
+      text-align: left;
+      padding: 13px 18px;
+      color: var(--green-dark);
+      font-weight: 600;
+      letter-spacing: .8px;
+      text-transform: uppercase;
+      font-size: .72rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    td {
+      padding: 13px 18px;
+      border-bottom: 1px solid rgba(205,224,213,.5);
+      color: var(--text);
+    }
+
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: var(--green-light); }
+
+    /* badges */
+    .badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: .74rem;
+      font-weight: 600;
+    }
+
+    .badge-green  { background: rgba(26,122,74,.1);  color: var(--green); }
+    .badge-yellow { background: rgba(201,168,76,.15); color: #8c6a10; }
+    .badge-red    { background: rgba(224,90,58,.1);   color: #b53a1e; }
+    .badge-blue   { background: rgba(58,150,191,.12); color: #1a6080; }
+
+    /* ── FOOTER ── */
+    footer {
+      margin-top: 3rem;
+      color: var(--muted);
+      font-size: .78rem;
+      text-align: center;
+      letter-spacing: 1px;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 560px) {
+      .navbar { padding: 0 1.2rem; }
+      .page-wrap { padding: 1.5rem 1rem 3rem; }
+      .card-body { padding: 20px 18px 14px; }
+      .card-footer { padding: 12px 18px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════  NAVBAR  ═══════════ -->
+  <nav class="navbar">
+    <div class="logo">
+      <div class="logo-icon">🔩</div>
+      NYONDO <span>HARDWARE</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="/">Stock</a></li>
+      <li><a href="/home1">Sales</a></li>
+      <li><a href="/home3">Customers</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-wrap">
+
+    <!-- ═══════════  DASHBOARD  ═══════════ -->
+    <div id="dashboard" style="width:100%;max-width:980px;">
+
+      <header>
+        <h1>NYONDO <span>GENERAL</span> HARDWARE</h1>
+        <p>Management Dashboard · Kampala, Uganda</p>
+        <div class="divider"></div>
+      </header>
+
+      <div class="cards">
+
+        <!-- STOCK -->
+        <a class="card card--stock" href="/" onclick="showPage('stock'); return false;">
+          <div class="card-stripe"></div>
+          <div class="card-body">
+            <div class="card-icon">📦</div>
+            <div>
+              <div class="card-title">STOCK <span>MANAGEMENT</span></div>
+            </div>
+            <div class="card-stats">
+              <div class="stat-pill"><strong>100</strong> Items</div>
+              
+            </div>
+          </div>
+          <div class="card-footer">
+            <span class="card-cta">View Inventory</span>
+            <div class="cta-arrow">
+              <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </div>
+        </a>
+
+        <!-- SALES -->
+        <a class="card card--sales" href="home1" onclick="showPage('sales'); return false;">
+          <div class="card-stripe"></div>
+          <div class="card-body">
+            <div class="card-icon">💰</div>
+            <div>
+              <div class="card-title">SALES <span>RECORDS</span></div>
+              <p class="card-desc">View daily transactions, monitor top-selling products and sales trends.</p>
+            </div>
+          
+          </div>
+          <div class="card-footer">
+            <span class="card-cta">View Sales</span>
+            <div class="cta-arrow">
+              <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </div>
+        </a>
+
+        <!-- CUSTOMER SCHEME -->
+        <a class="card card--customer" href="home3" onclick="showPage('customer'); return false;">
+          <div class="card-stripe"></div>
+          <div class="card-body">
+            <div class="card-icon">🏅</div>
+            <div>
+              <div class="card-title">CUSTOMER <span>SCHEME</span></div>
+             
+            </div>
+         
+          </div>
+          <div class="card-footer">
+            <span class="card-cta">View Scheme</span>
+            <div class="cta-arrow">
+              <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+
+
+
+ 
+
+</body>
+</html>
     
 {% endblock %}
