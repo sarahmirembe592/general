@@ -1,8 +1,13 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from hardwareapp.models import Stock, Sale,Register
 from . forms import *
+# importing a decorator(it's a function that must be run before running another function)
+from django.contrib.auth.decorators import login_required
+
+from django.contrib.auth import authenticate,logout
 
 # Create your views here.
+@login_required
 def home(request):
     # we fetch all the data
     all_stock = Stock.objects.all()
@@ -11,7 +16,7 @@ def home(request):
     }
     return render(request, 'home.html', context)
 
-
+@login_required
 def add(request):
     if request.method == "POST":
         payload = request.POST
@@ -40,6 +45,7 @@ def add(request):
         return redirect('home')
     return render(request,'add.html')
 
+@login_required
 def home1(request):
     # we fetch all the data
     all_sale = Sale.objects.all()
@@ -48,6 +54,8 @@ def home1(request):
     }
     return render(request, 'home1.html', context)
 
+
+@login_required
 def add1(request):
     if request.method == 'POST':
         payload = request.POST
@@ -105,6 +113,8 @@ def add1(request):
 #         return redirect('home2')
 #     return render(request,'add2.html')
 
+
+@login_required
 def home3(request):
     all_register = Register.objects.all()
     context = {
@@ -112,6 +122,8 @@ def home3(request):
     }
     return render(request, 'home3.html',context)
 
+
+@login_required
 def add3(request):
     if request.method == 'POST':
         payload = request.POST
@@ -139,7 +151,10 @@ def add3(request):
         NewRegister.save()
         return redirect('home3')
     return render(request,'add3.html')
+
+
 # Receipt for sales
+@login_required
 def sale_detail(request,pk):
     # Fetching all specific entry using primary key(pk)
     entry = get_object_or_404(Sale,pk=pk)
@@ -149,14 +164,18 @@ def customer_detail(request,pk):
     # Fetching all specific entry using primary key(pk)
     entry = get_object_or_404(Register,pk=pk)
     return render(request,'customer_edit.html',{'entry': entry})
+
+
 # Editing Stock
+@login_required
 def stock_review(request,pk):
     # Handling the data from the edit form
+    # Fetch stock item or return 404 if not found
     entry = get_object_or_404(Stock,pk=pk)
     form = StockeditForm(request.POST, instance = entry)
 
     if request.method == 'POST':
-       
+        # Save changes if form data is valid
         if form.is_valid():
             form.save()
             return redirect('home')
@@ -164,7 +183,10 @@ def stock_review(request,pk):
         form = StockeditForm(instance = entry)
     
     return render(request,'stock_edit.html',{'form': form})
+
+
 # edit receipt for customer deposit
+@login_required
 def deposit_review(request,pk):
     # Handling the data from the edit form
     entry = get_object_or_404(Register,pk=pk)
@@ -181,6 +203,18 @@ def deposit_review(request,pk):
         print("something went wrong")
     
     return render(request,'deposit_edit.html',{'form': form})
+
+
+
+@login_required
+def dashboard(request):
+    return render(request, 'dashboard.html')
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('dashboard')
+    
 
 
     

@@ -15,7 +15,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path,include
 from hardwareapp import views
 
 urlpatterns = [
@@ -39,7 +39,10 @@ urlpatterns = [
     path('home3/<int:pk>/',views.deposit_review, name='deposit_review'),
     # This url leads you to the customer temp receipt
     path('home3/<int:pk>/edit/',views.customer_detail, name='customer_detail'),
-
-    # path('dashboard/',views.dashboard, name='dashboard'),
+#  This url leads y
+    path('dashboard/',views.dashboard, name='dashboard'),
+# Created a url that handles login and log out
+    path('accounts/',include('django.contrib.auth.urls')),
+    path('logout/',views.logout_view, name='logout_view')
 
 ]

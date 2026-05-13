@@ -200,7 +200,12 @@
     }   
 </style>
   <nav class="navbar">
-  <div class="logo">Nyondo Management System</div>
+  <a href="{% url 'dashboard' %}" style="text-decoration:none;">
+   <div class="logo">
+      <div class="logo-icon">🔩</div>
+      NYONDO <span>HARDWARE</span>
+    </div>
+  </a>
   <ul class="nav-links">
      <li><a href="/add">Add Stock</a></li>
     <li><a href="/add1">Add Sale</a></li>

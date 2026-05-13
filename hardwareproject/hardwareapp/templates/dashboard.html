@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Nyondo General Hardware</title>
+  <title>Nyondo General Hardware</title> -->
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet"/>
   <style>
     :root {
@@ -455,8 +455,8 @@
       .card-footer { padding: 12px 18px; }
     }
   </style>
-</head>
-<body>
+<!-- </head>
+<body> -->
 
   <!-- ═══════════  NAVBAR  ═══════════ -->
   <nav class="navbar">
@@ -465,9 +465,10 @@
       NYONDO <span>HARDWARE</span>
     </div>
     <ul class="nav-links">
-      <li><a href="/">Stock</a></li>
-      <li><a href="/home1">Sales</a></li>
-      <li><a href="/home3">Customers</a></li>
+      <li><a href="/"></a></li>
+      <li><a href="/home1"></a></li>
+      <li><a href="/logout">Logout</a></li>
+
     </ul>
   </nav>
 
@@ -478,24 +479,20 @@
 
       <header>
         <h1>NYONDO <span>GENERAL</span> HARDWARE</h1>
-        <p>Management Dashboard · Kampala, Uganda</p>
+        <p>Management Dashboard · Nansana, Uganda</p>
         <div class="divider"></div>
       </header>
 
       <div class="cards">
 
         <!-- STOCK -->
-        <a class="card card--stock" href="/" onclick="showPage('stock'); return false;">
+        <a class="card card--stock" href="{% url 'home'%}">
           <div class="card-stripe"></div>
           <div class="card-body">
             <div class="card-icon">📦</div>
             <div>
               <div class="card-title">STOCK <span>MANAGEMENT</span></div>
-            </div>
-            <div class="card-stats">
-              <div class="stat-pill"><strong>100</strong> Items</div>
-              
-            </div>
+            </div> 
           </div>
           <div class="card-footer">
             <span class="card-cta">View Inventory</span>
@@ -506,7 +503,7 @@
         </a>
 
         <!-- SALES -->
-        <a class="card card--sales" href="home1" onclick="showPage('sales'); return false;">
+        <a class="card card--sales" href="{% url 'home1'%}">
           <div class="card-stripe"></div>
           <div class="card-body">
             <div class="card-icon">💰</div>
@@ -525,7 +522,7 @@
         </a>
 
         <!-- CUSTOMER SCHEME -->
-        <a class="card card--customer" href="home3" onclick="showPage('customer'); return false;">
+        <a class="card card--customer" href="{% url 'home3'%}" >
           <div class="card-stripe"></div>
           <div class="card-body">
             <div class="card-icon">🏅</div>
@@ -550,7 +547,7 @@
 
  
 
-</body>
-</html>
+<!-- </body>
+</html> -->
     
 {% endblock %}

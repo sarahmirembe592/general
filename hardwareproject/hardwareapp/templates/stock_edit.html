@@ -1,144 +1,199 @@
 {% extends 'base.html' %}
 {% block content %}
 <style>
- body {
-    font-family: Arial, sans-serif;
-    background: #eef2f7;
-    margin: 0;
+  :root {
+    --green:       #1a7a4a;
+    --green-dark:  #145c37;
+    --green-light: #e8f5ee;
+    --gold:        #c9a84c;
+    --bg:          #f0f4f2;
+    --white:       #ffffff;
+    --text:        #1c2b22;
+    --muted:       #6b8070;
+    --border:      #cde0d5;
+    --shadow:      0 6px 32px rgba(26,122,74,.11);
+  }
+ 
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+ 
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
     min-height: 100vh;
+  }
+ 
+  /* ── NAVBAR ── */
+  .navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2.5rem;
+    height: 68px;
+    background: var(--green);
+    box-shadow: 0 2px 12px rgba(0,0,0,.15);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    margin-top: 0;
+  }
+ 
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem;
+    color: var(--white);
+    letter-spacing: .3px;
+  }
+ 
+  .nav-links {
+    list-style: none;
+    display: flex;
+    gap: .5rem;
+  }
+ 
+  .nav-links a {
+    text-decoration: none;
+    color: rgba(255,255,255,.85);
+    font-size: .9rem;
+    font-weight: 500;
+    padding: .45rem 1rem;
+    border-radius: 6px;
+    transition: background .2s, color .2s;
+  }
+ 
+  .nav-links a:hover {
+    background: rgba(255,255,255,.15);
+    color: #fff;
+  }
+ 
+  /* ── PAGE WRAPPER ── */
+  .page {
     display: flex;
     justify-content: center;
-    align-items: center;
-}
-
-.container {
-    background: #fff;
-    width: 900px;
-    padding: 20px 30px;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-}
-
-h2 {
-    text-align: center;
-    margin-bottom: 10px;
-}
-
-/* GRID */
-form {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px 20px;
-
-}
-
-/* SECTION HEADINGS */
-.section {
-    grid-column: span 2;
-    font-weight: bold;
-    font-size: 13px;
-    color: #0d6efd;
-    margin-top: 10px;
-    
-}
-
-/* INPUT GROUP */
-.col {
+    padding: 2.5rem 1.5rem 4rem;
+  }
+ 
+  /* ── CARD ── */
+  .card {
+    background: var(--white);
+    border-radius: 18px;
+    box-shadow: var(--shadow);
+    width: 100%;
+    max-width: 580px;
+    overflow: hidden;
+    animation: slideUp .45s ease both;
+  }
+ 
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+ 
+  /* gold-green top bar */
+  .card::before {
+    content: '';
+    display: block;
+    height: 6px;
+    background: linear-gradient(90deg, var(--green) 0%, var(--gold) 100%);
+  }
+ 
+  /* ── HEADING ── */
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.45rem;
+    color: var(--green-dark);
+    padding: 1.8rem 2.2rem .2rem;
+    text-align: left;
+  }
+ 
+  /* ── FORM ── */
+  form {
+    padding: 1.4rem 2.2rem 2.2rem;
     display: flex;
     flex-direction: column;
-}
-
-/* LABEL */
-label {
-    font-size: 13px;
-    margin-bottom: 4px;
-}
-
-/* INPUTS */
-input, select {
+    gap: 0;
+  }
+ 
+  /* Django's form.as_p wraps each field in a <p> tag */
+  form p {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+  }
+ 
+  form p label {
+    display: block;
+    font-size: .75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: .6px;
+    color: var(--muted);
+    margin-bottom: .35rem;
+  }
+ 
+  form p input[type="text"],
+  form p input[type="number"],
+  form p input[type="datetime-local"],
+  form p input[type="date"],
+  form p input[type="email"],
+  form p select,
+  form p textarea {
     width: 100%;
-    padding: 8px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    font-size: 14px;
-}
-
-/* BUTTON */
-button {
-    grid-column: span 2;
-    padding: 12px;
+    padding: .75rem 1rem;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: .95rem;
+    color: var(--text);
+    background: var(--green-light);
+    outline: none;
+    transition: border-color .2s, box-shadow .2s, background .2s;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+ 
+  form p input:focus,
+  form p select:focus,
+  form p textarea:focus {
+    border-color: var(--green);
+    background: var(--white);
+    box-shadow: 0 0 0 3px rgba(26,122,74,.12);
+  }
+ 
+  form p input::placeholder { color: #a0b8aa; }
+ 
+  /* ── SUBMIT BUTTON ── */
+  button[type="submit"] {
+    width: 100%;
+    padding: .9rem;
+    margin-top: .8rem;
+    background: var(--green);
+    color: #fff;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
     border: none;
-    border-radius: 6px;
-    background: green;
-    color: white;
-    font-size: 15px;
+    border-radius: 10px;
     cursor: pointer;
-    margin-top: 10px;
-}
-
-button:hover {
-    background: green;
-}
-/* Basic Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
-}
-
-/* Navbar Container */
-.navbar {
-  display: flex;
-  justify-content: space-between; /* Pushes logo and links to opposite sides */
-  align-items: center;
-  padding: 15px 30px;
-  background-color: #333;
-  color: white;
-  position: sticky; /* Keeps navbar at the top while scrolling */
-  top: 0;
-  z-index: 1000;
-  margin-top: 20px;
-}
-
-/* Logo Styling */
-.logo {
-  font-size: 24px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-/* Links Layout */
-.nav-links {
-  list-style: none; /* Removes bullet points */
-  display: flex;
-  gap: 20px; /* Space between links */
-}
-
-/* Individual Link Styling */
-.nav-links a {
-  text-decoration: none;
-  color: white;
-  font-size: 18px;
-  transition: color 0.3s ease;
-}
-
-/* Hover Effect */
-.nav-links a:hover {
-  color: #04AA6D; /* Changes color on hover */
-}
-
-/* Action Button (Optional) */
-.cta {
-  background-color: #04AA6D;
-  padding: 8px 15px;
-  border-radius: 5px;
-}
-
-.cta:hover {
-  background-color: #059862;
-  color: white !important;
-}
+    letter-spacing: .3px;
+    transition: background .2s, transform .15s, box-shadow .2s;
+    box-shadow: 0 4px 14px rgba(26,122,74,.30);
+  }
+ 
+  button[type="submit"]:hover {
+    background: var(--green-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(26,122,74,.35);
+  }
+ 
+  button[type="submit"]:active { transform: translateY(0); }
+ 
+  /* ── RESPONSIVE ── */
+  @media (max-width: 520px) {
+    .navbar { padding: 0 1.2rem; }
+    h2 { padding: 1.4rem 1.4rem .2rem; }
+    form { padding: 1.2rem 1.4rem 1.8rem; }
+  }
 </style>
    <nav class="navbar">
   <div class="logo">Welcome to Nyondo</div>
@@ -150,7 +205,8 @@ button:hover {
     
   </ul>
 </nav>
-
+<div class="page">
+  <div class="card">
 <h2>Edit Stock</h2>
 <form method="POST">
         {% csrf_token %}
@@ -161,5 +217,7 @@ button:hover {
         <button type="submit">Save Stock</button>
 
     </form>
+</div>
+</div>
     
 {% endblock %}
