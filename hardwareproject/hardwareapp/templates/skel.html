@@ -1,351 +1,138 @@
-{% extends 'base.html' %}
-{% block content %}
-
-<style>
-   :root {
-    --green:       #1a7a4a;
-    --green-dark:  #145c37;
-    --green-light: #e8f5ee;
-    --gold:        #c9a84c;
-    --bg:          #f0f4f2;
-    --white:       #ffffff;
-    --text:        #1c2b22;
-    --muted:       #6b8070;
-    --border:      #cde0d5;
-    --shadow:      0 6px 32px rgba(26,122,74,.11);
-  }
- 
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
- 
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--bg);
-    color: var(--text);
+ body {
+    font-family: Arial, sans-serif;
+    background: #eef2f7;
+    margin: 0;
     min-height: 100vh;
-  }
- 
-  /* ── NAVBAR ── */
-  .navbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 2.5rem;
-    height: 68px;
-    background: var(--green);
-    box-shadow: 0 2px 12px rgba(0,0,0,.15);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
- 
-  .logo {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.35rem;
-    color: var(--white);
-    letter-spacing: .3px;
-  }
- 
-  .nav-links {
-    list-style: none;
-    display: flex;
-    gap: .5rem;
-  }
- 
-  .nav-links a {
-    text-decoration: none;
-    color: rgba(255,255,255,.85);
-    font-size: .9rem;
-    font-weight: 500;
-    padding: .45rem 1rem;
-    border-radius: 6px;
-    transition: background .2s, color .2s;
-  }
- 
-  .nav-links a:hover {
-    background: rgba(255,255,255,.15);
-    color: #fff;
-  }
- 
-  /* ── PAGE LAYOUT ── */
-  .page-wrapper {
     display: flex;
     justify-content: center;
-    padding: 2.5rem 1.5rem 4rem;
-  }
- 
-  /* ── CARD ── */
-  .card {
-    background: var(--white);
-    border-radius: 18px;
-    box-shadow: var(--shadow);
-    width: 100%;
-    max-width: 760px;
-    overflow: hidden;
-    animation: slideUp .45s ease both;
-  }
- 
-  @keyframes slideUp {
-    from { opacity: 0; transform: translateY(28px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
- 
-  /* gold-green top bar */
-  .card::before {
-    content: '';
-    display: block;
-    height: 6px;
-    background: linear-gradient(90deg, var(--green) 0%, var(--gold) 100%);
-  }
- 
-  .card-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.5rem;
-    color: var(--green-dark);
-    padding: 1.8rem 2.2rem .2rem;
-  }
- 
-  /* ── FORM ── */
-  form {
-    padding: 1.4rem 2.2rem 2.2rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1.4rem;
-  }
- 
-  /* ── SECTION HEADERS (matching stock entry green bars) ── */
-  .section-header {
-    background: var(--green);
-    color: #fff;
-    font-size: .78rem;
-    font-weight: 600;
-    letter-spacing: 1.2px;
-    text-transform: uppercase;
-    padding: .65rem 1rem;
-    border-radius: 8px;
-    margin-bottom: -.2rem;
-  }
- 
-  /* ── FIELD GROUPS ── */
-  .field-group {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
- 
-  .field-row {
+    align-items: center;
+}
+
+.container {
+    background: #fff;
+    width: 900px;
+    padding: 20px 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+/* GRID */
+form {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-  }
- 
-  .field-row.three {
-    grid-template-columns: 1fr 1fr 1fr;
-  }
- 
-  .field-wrap {
+    gap: 15px 20px;
+
+}
+
+/* SECTION HEADINGS */
+.section {
+    grid-column: span 2;
+    font-weight: bold;
+    font-size: 13px;
+    color: #0d6efd;
+    margin-top: 10px;
+    
+}
+
+/* INPUT GROUP */
+.col {
     display: flex;
     flex-direction: column;
-  }
- 
-  /* ── LABELS ── */
-  label {
-    display: block;
-    font-size: .72rem;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: .6px;
-    color: var(--muted);
-    margin-bottom: .35rem;
-  }
- 
-  /* ── INPUTS & SELECTS ── */
-  input[type="text"],
-  input[type="tel"],
-  input[type="number"],
-  input[type="datetime-local"],
-  select {
+}
+
+/* LABEL */
+label {
+    font-size: 13px;
+    margin-bottom: 4px;
+}
+
+/* INPUTS */
+input, select {
     width: 100%;
-    padding: .75rem 1rem;
-    border: 1.5px solid var(--border);
-    border-radius: 10px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: .95rem;
-    color: var(--text);
-    background: var(--green-light);
-    outline: none;
-    transition: border-color .2s, box-shadow .2s, background .2s;
-    appearance: none;
-    -webkit-appearance: none;
-  }
- 
-  select {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%236b8070' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 1rem center;
-    background-color: var(--green-light);
-    padding-right: 2.5rem;
-  }
- 
-  input:focus,
-  select:focus {
-    border-color: var(--green);
-    background: var(--white);
-    box-shadow: 0 0 0 3px rgba(26,122,74,.12);
-  }
- 
-  input::placeholder { color: #a0b8aa; }
- 
-  /* ── SUBMIT BUTTON ── */
-  .btn-submit {
-    width: 100%;
-    padding: .9rem;
-    margin-top: .4rem;
-    background: var(--green);
-    color: #fff;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 1rem;
-    font-weight: 500;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+/* BUTTON */
+button {
+    grid-column: span 2;
+    padding: 12px;
     border: none;
-    border-radius: 10px;
+    border-radius: 6px;
+    background: green;
+    color: white;
+    font-size: 15px;
     cursor: pointer;
-    letter-spacing: .3px;
-    transition: background .2s, transform .15s, box-shadow .2s;
-    box-shadow: 0 4px 14px rgba(26,122,74,.30);
-  }
- 
-  .btn-submit:hover {
-    background: var(--green-dark);
-    transform: translateY(-1px);
-    box-shadow: 0 6px 18px rgba(26,122,74,.35);
-  }
- 
-  .btn-submit:active { transform: translateY(0); }
- 
-  /* ── RESPONSIVE ── */
-  @media (max-width: 600px) {
-    .navbar { padding: 0 1.2rem; }
-    .card-title { padding: 1.4rem 1.4rem .2rem; }
-    form { padding: 1.2rem 1.4rem 1.8rem; }
-    .field-row,
-    .field-row.three { grid-template-columns: 1fr; }
-  }
+    margin-top: 10px;
+}
 
+button:hover {
+    background: green;
+}
+/* Basic Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
 
-</style>
-  </head>
+/* Navbar Container */
+.navbar {
+  display: flex;
+  justify-content: space-between; /* Pushes logo and links to opposite sides */
+  align-items: center;
+  padding: 15px 30px;
+  background-color: #333;
+  color: white;
+  position: sticky; /* Keeps navbar at the top while scrolling */
+  top: 0;
+  z-index: 1000;
+  margin-top: 20px;
+}
 
-<body> 
-     <nav class="navbar">
-  <div class="logo">Nyondo Management System</div>
-  <ul class="nav-links">
-    <li><a href="/">Stock</a></li>
-    <li><a href="/home1">Sales</a></li>
-    <!-- <li><a href="/home2">Home2</a></li> -->
-    <li><a href="/home3">Customer's List</a></li>
-  </ul>
-</nav>
-<div class="container-fluid">
-  
-  <h3>Sales Registration Form</h3>
-  <form method="POST" action="{% url 'add1'%}" class="row g-3">
-    {% csrf_token %}
-    <!-- customer information -->
-    <p>CUSTOMER INFORMATION</p>
-    <div class="col">
-      <label for="Customer Name">Customer Name</label>
-      <input type="text" name="customer_name" class="form-control" placeholder="Full name" aria-label="Full name" required>
-    </div>
-   
-<!-- product details -->
-    <p>PRODUCT DETAILS</p>
-    <div class="col">
-      <label for="category">Category</label>
-      <select class="form-select" name="category">
-        <option selected> select Category</option>
-        <option>Building Material</option>
-        <option>Paint & Finishes</option>
-        <option>Fasteners</option>
-        <option>Others(Tools)</option>
-      </select>
-    </div>
-    <div class="col-md-6">
-      <label for="productname">Product Name</label>
-      <select class="form-select" name="product_name">
-        <option selected> select Product</option>
-         <option value="CEM IIN">Cement - CEM IIN</option>
-        <option value="CEM IIIN">Cement - CEM IIIN</option>
+/* Logo Styling */
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+}
 
-        <option value="BAR 10MM">Iron Bar - 10MM</option>
-        <option value="BAR 12MM">Iron Bar - 12MM</option>
-        <option value="BAR 16MM">Iron Bar - 16MM</option>
+/* Links Layout */
+.nav-links {
+  list-style: none; /* Removes bullet points */
+  display: flex;
+  gap: 20px; /* Space between links */
+}
 
-        <option value="NAIL 0001">Nails - 1 inch</option>
-        <option value="NAIL 0003">Nails - 3 inch</option>
-        <option value="NAIL 0004">Nails - 4 inch</option>
-        <option value="NAIL 0005">Nails - 5 inch</option>
-        <option value="ROOF NAIL">Roofing Nails</option>
-        <option value="BARBED HIGH">Barbed Wire - High Tensile</option>
-        <option value="BARBED LOW">Barbed Wire - Low Tensile</option>
-        <option>Roofing nails</option>
-        <option>Wheelbarrows</option>
-        <option>Wire mesh</option>
-        <option>Iron sheets(colors & guages)</option>
-      </select>
-    </div>
-    <div class="row">
-      <div class="col">
-        <label for="quantity">Quantity</label>
-        <input type="number" name="quantity" class="form-control" required>
-      </div>
-      <div class="col">
-        <label for="unit price">Unit Price(UGX)</label>
-        <input type="number" name="unit_price" class="form-control" required>
-      </div>
-      <div class="col">
-        <label for="total price">Total Price(UGX)</label>
-        <input type="number" name="total_price" class="form-control" required>
-      </div>
-    </div>
-    <!-- payment infomation -->
-    <p>PAYMENT INFORMATION</p>
-    <div class="row">
-      <div class="col">
-        <label for="Payment method">Payment Method</label>
-        <select class="form-select" name="payment_method">
-          <option selected> select Method</option>
-          <option>Cash</option>
-          <option>Mobile Money</option>
-          <option>Bank Transfer</option>
-          <option>Credit(Approved)</option>
-        </select>
-      </div>
-      <div class="col">
-        <label for="receipt number">Receipt Number</label>
-        <input type="text" name="receipt_number" class="form-control" placeholder="eg REC-00123" required>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <!-- <label for="date of sale">Date of Sale</label>
-        <input type="datetime-local" name="date" class="form-control" required>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <label for="name of sales person">Name of Sales Person</label>
-        <input type="text" name="name_of_sales_person" class="form-control" placeholder="Name of sales person" required>
-      </div>
-    </div> -->
-    <!-- end part -->
-    <div class="row">
-      <div class="col">
-        <button type="submit" class="btn btn-primary btn-lg">Register Sale</button>
-      </div>
-    </div>
+/* Individual Link Styling */
+.nav-links a {
+  text-decoration: none;
+  color: white;
+  font-size: 18px;
+  transition: color 0.3s ease;
+}
 
+/* Hover Effect */
+.nav-links a:hover {
+  color: #04AA6D; /* Changes color on hover */
+}
 
+/* Action Button (Optional) */
+.cta {
+  background-color: #04AA6D;
+  padding: 8px 15px;
+  border-radius: 5px;
+}
 
-  </form>
-  </div>
-    
-{% endblock %}
+.cta:hover {
+  background-color: #059862;
+  color: white !important;
+}

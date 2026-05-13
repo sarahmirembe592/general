@@ -38,28 +38,64 @@
       z-index: 100;
     }
  
-    .logo {
+    /* .logo {
       font-family: 'Playfair Display', serif;
       font-size: 1.35rem;
       color: var(--white);
+    } */
+     
+  
+    /* ── NAVBAR ── */
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2.5rem;
+      height: 68px;
+      background: var(--green);
+      box-shadow: 0 2px 12px rgba(0,0,0,.15);
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
- 
+
+    .logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.45rem;
+      letter-spacing: 3px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-icon {
+      width: 36px; height: 36px;
+      background: var(--gold);
+      border-radius: 8px;
+      display: grid; place-items: center;
+      font-size: 18px;
+    }
+
+    .logo span { color: var(--gold); }
+
     .nav-links {
       list-style: none;
       display: flex;
-      gap: .5rem;
+      gap: .4rem;
     }
- 
+
     .nav-links a {
       text-decoration: none;
-      color: rgba(255,255,255,.85);
-      font-size: .9rem;
+      color: rgba(255,255,255,.8);
+      font-size: .88rem;
       font-weight: 500;
       padding: .45rem 1rem;
-      border-radius: 6px;
-      transition: background .2s, color .2s;
+      border-radius: 8px;
+      border: 1px solid transparent;
+      transition: all .2s;
     }
- 
+
     .nav-links a:hover {
       background: rgba(255,255,255,.15);
       color: #fff;
@@ -215,13 +251,17 @@
 </head>
 
 <body>
-    <nav class="navbar">
-  <div class="logo">Nyondo Management System</div>
+<nav class="navbar">
+    <div class="logo">
+      <div class="logo-icon">🔩</div>
+      NYONDO <span>HARDWARE</span>
+    </div>
   <ul class="nav-links">
     <li><a href="/">Stock</a></li>
     <li><a href="/home1">Sales</a></li>
     <!-- <li><a href="/home2">Home2</a></li> -->
     <li><a href="/home3">customer's List</a></li>
+
     
   </ul>
 </nav>
