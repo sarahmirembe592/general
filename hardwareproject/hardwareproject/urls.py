@@ -39,10 +39,15 @@ urlpatterns = [
     path('home3/<int:pk>/',views.deposit_review, name='deposit_review'),
     # This url leads you to the customer temp receipt
     path('home3/<int:pk>/edit/',views.customer_detail, name='customer_detail'),
+<<<<<<< Updated upstream
 #  This url leads y
     path('dashboard/',views.dashboard, name='dashboard'),
 # Created a url that handles login and log out
     path('accounts/',include('django.contrib.auth.urls')),
     path('logout/',views.logout_view, name='logout_view')
+=======
+
+     path('dashboard/',views.dashboard, name='dashboard'),
+>>>>>>> Stashed changes
 
 ]
