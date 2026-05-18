@@ -23,47 +23,70 @@
       min-height: 100vh;
     }
  
-    /* ── NAVBAR ── */
-    .navbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 2.5rem;
-      height: 68px;
-      background: var(--green);
-      box-shadow: 0 2px 12px rgba(0,0,0,.15);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
- 
-    .logo {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.35rem;
-      color: var(--white);
-      letter-spacing: .3px;
-    }
- 
-    .nav-links {
-      list-style: none;
-      display: flex;
-      gap: .5rem;
-    }
- 
-    .nav-links a {
-      text-decoration: none;
-      color: rgba(255,255,255,.85);
-      font-size: .9rem;
-      font-weight: 500;
-      padding: .45rem 1rem;
-      border-radius: 6px;
-      transition: background .2s, color .2s;
-    }
- 
-    .nav-links a:hover {
-      background: rgba(255,255,255,.15);
-      color: #fff;
-    }
+  /* ── NAVBAR ── */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2.5rem;
+  height: 68px;
+  background: var(--green);
+  box-shadow: 0 2px 12px rgba(0,0,0,.15);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+/* ── LOGO ── */
+.logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.45rem;
+  letter-spacing: 3px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo span { color: var(--gold); }
+
+.logo-icon {
+  width: 36px; height: 36px;
+  background: var(--gold);
+  border-radius: 8px;
+  display: grid; place-items: center;
+  font-size: 18px;
+}
+
+/* ── NAV LINKS ── */
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: .4rem;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: rgba(255,255,255,.8);
+  font-size: .88rem;
+  font-weight: 500;
+  padding: .45rem 1rem;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  transition: all .2s;
+}
+
+.nav-links a:hover {
+  background: rgba(255,255,255,.15);
+  color: #fff;
+  border-color: rgba(255,255,255,.2);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 560px) {
+  .navbar { padding: 0 1.2rem; }
+  .nav-links a { padding: .4rem .7rem; font-size: .8rem; }
+}
  
     /* ── PAGE TITLE ── */
     h3 {
@@ -220,15 +243,17 @@
     }
 </style>
    <nav class="navbar">
+    <a href="{% url 'dashboard' %}" style="text-decoration:none;">
    <div class="logo">
       <div class="logo-icon">🔩</div>
       NYONDO <span>HARDWARE</span>
-    </div>
+    </div></a>
   <ul class="nav-links">
     <li><a href="/">Stock</a></li>
     <li><a href="/home1">Sales</a></li>
     <!-- <li><a href="/home2">Home2</a></li> -->
     <li><a href="/home3">Customer's List</a></li>
+     <li><a href="/logout">Logout</a></li>
     
   </ul>
   </nav>
@@ -243,16 +268,16 @@
         <form method="POST" action="{% url 'add3'%}">
             {% csrf_token %}
             <label>Full Name</label>
-            <input type="text" name="name" placeholder="Enter full name" required>
+            <input type="text" name="name" placeholder="Enter full name" required pattern="[A-Za-z\s]+" title="Please enter a valid name (letters and spaces only)">
 
             <label>NIN Number</label>
-            <input type="text" maxlength="14" name="nin" placeholder="Enter NIN" required>
+            <input type="text" maxlength="14" name="nin" placeholder="Enter NIN" required patern="^[a-zA-Z0-9]{14}$" title="Please enter a valid NIN (14 alphanumeric characters)">
 
             <label>Phone Number</label>
-            <input type="tel" name="phone" maxlength="14" placeholder="Enter phone number" required>
+            <input type="tel" name="phone" maxlength="14" placeholder="Enter phone number" required pattern="^\+?254\d{9}$" title="Please enter a valid phone number (e.g., +254712345678)">
 
             <label>Address</label>
-            <input type="text" name="address" placeholder="Enter address" required>
+            <input type="text" name="address" placeholder="Enter address" required pattern="[A-Za-z0-9\s,.-]+" title="Please enter a valid address (letters, numbers, spaces, commas, periods, and hyphens only)">
 
             <label>Date</label>
             <input type="datetime-local" name="date"  required>
@@ -269,7 +294,7 @@
             </select>
 
             <label>Amount Deposited (UGX)</label>
-            <input type="number" name="amount" placeholder="Enter amount" required>
+            <input type="number" name="amount" placeholder="Enter amount" required pattern="[0-9]+" title="Please enter a valid amount (numbers only)">
 
         <label for="Payment method">Payment Method</label>
         <select class="form-select" name="payment_method">

@@ -2,3 +2,9 @@
 {% block content %}
     
 {% endblock %}
+  all_sale = Sale.objects.all()
+    
+    context ={
+        'sale': all_sale, 
+    }
+    return render(request, 'home1.html', context)

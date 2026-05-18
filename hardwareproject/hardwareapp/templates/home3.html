@@ -23,48 +23,70 @@
       color: var(--text);
       min-height: 100vh;
     }
- 
-    /* ── NAVBAR ── */
-    .navbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 2.5rem;
-      height: 68px;
-      background: var(--green);
-      box-shadow: 0 2px 12px rgba(0,0,0,.15);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
- 
-    .logo {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.35rem;
-      color: var(--white);
-      letter-spacing: .3px;
-    }
- 
-    .nav-links {
-      list-style: none;
-      display: flex;
-      gap: .5rem;
-    }
- 
-    .nav-links a {
-      text-decoration: none;
-      color: rgba(255,255,255,.85);
-      font-size: .9rem;
-      font-weight: 500;
-      padding: .45rem 1rem;
-      border-radius: 6px;
-      transition: background .2s, color .2s;
-    }
- 
-    .nav-links a:hover {
-      background: rgba(255,255,255,.15);
-      color: #fff;
-    }
+/* ── NAVBAR ── */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2.5rem;
+  height: 68px;
+  background: var(--green);
+  box-shadow: 0 2px 12px rgba(0,0,0,.15);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+/* ── LOGO ── */
+.logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.45rem;
+  letter-spacing: 3px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo span { color: var(--gold); }
+
+.logo-icon {
+  width: 36px; height: 36px;
+  background: var(--gold);
+  border-radius: 8px;
+  display: grid; place-items: center;
+  font-size: 18px;
+}
+
+/* ── NAV LINKS ── */
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: .4rem;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: rgba(255,255,255,.8);
+  font-size: .88rem;
+  font-weight: 500;
+  padding: .45rem 1rem;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  transition: all .2s;
+}
+
+.nav-links a:hover {
+  background: rgba(255,255,255,.15);
+  color: #fff;
+  border-color: rgba(255,255,255,.2);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 560px) {
+  .navbar { padding: 0 1.2rem; }
+  .nav-links a { padding: .4rem .7rem; font-size: .8rem; }
+}
  
     /* ── PAGE HEADING ── */
     .page-title {
@@ -211,6 +233,7 @@
     <li><a href="/add1">Add Sale</a></li>
     <!-- <li><a href="/add2">Add Deposit</a></li> -->
     <li><a href="/add3">Register Customer</a></li>
+     <li><a href="/logout">Logout</a></li>
   </ul>
 </nav>
 <div>

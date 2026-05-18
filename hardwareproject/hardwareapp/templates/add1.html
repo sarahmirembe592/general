@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
+
 {% block content %}
+
 
 <style>
   :root {
@@ -30,45 +32,70 @@
     margin: 0;
     text-align: left;
   }
-    .navbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 2.5rem;
-      height: 68px;
-      background: var(--green);
-      box-shadow: 0 2px 12px rgba(0,0,0,.15);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
- 
-    .logo {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.35rem;
-      color: var(--white);
-    }
- 
-    .nav-links {
-      list-style: none;
-      display: flex;
-      gap: .5rem;
-    }
- 
-    .nav-links a {
-      text-decoration: none;
-      color: rgba(255,255,255,.85);
-      font-size: .9rem;
-      font-weight: 500;
-      padding: .45rem 1rem;
-      border-radius: 6px;
-      transition: background .2s, color .2s;
-    }
- 
-    .nav-links a:hover {
-      background: rgba(255,255,255,.15);
-      color: #fff;
-    }
+/* ── NAVBAR ── */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2.5rem;
+  height: 68px;
+  background: var(--green);
+  box-shadow: 0 2px 12px rgba(0,0,0,.15);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+/* ── LOGO ── */
+.logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.45rem;
+  letter-spacing: 3px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo span { color: var(--gold); }
+
+.logo-icon {
+  width: 36px; height: 36px;
+  background: var(--gold);
+  border-radius: 8px;
+  display: grid; place-items: center;
+  font-size: 18px;
+}
+
+/* ── NAV LINKS ── */
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: .4rem;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: rgba(255,255,255,.8);
+  font-size: .88rem;
+  font-weight: 500;
+  padding: .45rem 1rem;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  transition: all .2s;
+}
+
+.nav-links a:hover {
+  background: rgba(255,255,255,.15);
+  color: #fff;
+  border-color: rgba(255,255,255,.2);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 560px) {
+  .navbar { padding: 0 1.2rem; }
+  .nav-links a { padding: .4rem .7rem; font-size: .8rem; }
+}
  
 
   /* ── OUTER CONTAINER becomes the card ── */
@@ -106,7 +133,7 @@
 
   /* ── <p> tags become green section header bars ── */
   .container-fluid form > p {
-    background: var(--green) !important;
+    background: var(--gold) !important;
     color: #fff !important;
     font-size: .78rem !important;
     font-weight: 600 !important;
@@ -203,20 +230,26 @@
     .container-fluid form { padding: 0 1.2rem 1.8rem !important; }
     h3 { padding: 1.4rem 1.2rem .2rem !important; }
   }
+
+
+
+  
 </style>
   </head>
 
 <body> 
      <nav class="navbar">
+      <a href="{% url 'dashboard' %}" style="text-decoration:none;">
    <div class="logo">
       <div class="logo-icon">🔩</div>
       NYONDO <span>HARDWARE</span>
-    </div>
+    </div></a>
   <ul class="nav-links">
     <li><a href="/">Stock</a></li>
     <li><a href="/home1">Sales</a></li>
     <!-- <li><a href="/home2">Home2</a></li> -->
     <li><a href="/home3">Customer's List</a></li>
+     <li><a href="/logout">Logout</a></li>
   </ul>
 </nav>
 <div class="container-fluid">
@@ -228,7 +261,7 @@
     <p>CUSTOMER INFORMATION</p>
     <div class="col">
       <label for="Customer Name">Customer Name</label>
-      <input type="text" name="customer_name" class="form-control" placeholder="Full name" aria-label="Full name" required>
+      <input type="text" name="customer_name" class="form-control" placeholder="Full name" aria-label="Full name" required pattern="[A-Za-z\s]+" title="Please enter a valid name (letters and spaces only)">
     </div>
    
 <!-- product details -->
@@ -270,16 +303,16 @@
     <div class="row">
       <div class="col">
         <label for="quantity">Quantity</label>
-        <input type="number" name="quantity" class="form-control" required>
+        <input type="number" name="quantity" class="form-control" required pattern="[0-9]+|10$" title="Please enter a valid quantity (numbers only)" placeholder="eg 100">
       </div>
       <div class="col">
         <label for="unit price">Unit Price(UGX)</label>
-        <input type="number" name="unit_price" class="form-control" required>
+        <input type="number" name="unit_price" class="form-control" required pattern="[0-9]+|10$" title="Please enter a valid price (numbers only)" placeholder="eg 4000">
       </div>
-      <div class="col">
+      <!-- <div class="col">
         <label for="total price">Total Price(UGX)</label>
         <input type="number" name="total_price" class="form-control" required>
-      </div>
+      </div> -->
     </div>
     <!-- payment infomation -->
     <p>PAYMENT INFORMATION</p>
@@ -296,11 +329,11 @@
       </div>
       <div class="col">
         <label for="receipt number">Receipt Number</label>
-        <input type="text" name="receipt_number" class="form-control" placeholder="eg REC-00123" required>
+        <input type="text" name="receipt_number" class="form-control" placeholder="eg REC-001" required pattern="[A-Za-z0-9\-]+" title="Please enter a valid receipt number (letters, numbers, and hyphens only)">
       </div>
     </div>
-    <div class="row">
-      <div class="col">
+    <!-- <div class="row">
+      <div class="col"> -->
         <!-- <label for="date of sale">Date of Sale</label>
         <input type="datetime-local" name="date" class="form-control" required>
       </div>
@@ -321,6 +354,6 @@
 
 
   </form>
-  </div>
-    
+  </div> 
+   
 {% endblock %}

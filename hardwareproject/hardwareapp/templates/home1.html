@@ -37,49 +37,71 @@
       top: 0;
       z-index: 100;
     }
- 
+
+    /* ── LOGO ── */
     .logo {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.35rem;
-      color: var(--white);
-      letter-spacing: .3px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.45rem;
+      letter-spacing: 3px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
- 
+
+    .logo span { color: var(--gold); }
+
+    .logo-icon {
+      width: 36px; height: 36px;
+      background: var(--gold);
+      border-radius: 8px;
+      display: grid; place-items: center;
+      font-size: 18px;
+    }
+
+    /* ── NAV LINKS ── */
     .nav-links {
       list-style: none;
       display: flex;
-      gap: .5rem;
+      gap: .4rem;
     }
- 
+
     .nav-links a {
       text-decoration: none;
-      color: rgba(255,255,255,.85);
-      font-size: .9rem;
+      color: rgba(255,255,255,.8);
+      font-size: .88rem;
       font-weight: 500;
       padding: .45rem 1rem;
-      border-radius: 6px;
-      transition: background .2s, color .2s;
+      border-radius: 8px;
+      border: 1px solid transparent;
+      transition: all .2s;
     }
- 
+
     .nav-links a:hover {
       background: rgba(255,255,255,.15);
       color: #fff;
+      border-color: rgba(255,255,255,.2);
     }
- 
-    /* ── PAGE HEADING ── */
-    .page-title {
-      text-align: center;
-      margin: 2.2rem 0 1.6rem;
+
+    /* ── PAGE HEADER ROW ── */
+    .page-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      margin: 2.2rem 2rem 1.6rem;
+      flex-wrap: wrap;
     }
- 
-    .page-title h2 {
+
+    .page-header h2 {
       font-family: 'Playfair Display', serif;
       font-size: 1.7rem;
       color: var(--green-dark);
       letter-spacing: .3px;
+      position: relative;
     }
- 
-    .page-title h2::after {
+
+    .page-header h2::after {
       content: '';
       display: block;
       width: 55px;
@@ -88,7 +110,43 @@
       border-radius: 2px;
       margin: .5rem auto 0;
     }
- 
+
+    /* ── TOTAL SALES CARD ── */
+    .summary-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: var(--white);
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      padding: .7rem 1.6rem;
+      border-top: 4px solid var(--gold);
+      min-width: 200px;
+    }
+
+    .summary-card .summary-label {
+      font-size: .67rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.1px;
+      color: var(--muted);
+    }
+
+    /* .summary-card .summary-value {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--green-dark);
+      font-family: 'DM Mono', monospace;
+      margin-top: .2rem;
+    } */
+
+    /* .summary-card .summary-sub {
+      font-size: .68rem;
+      color: var(--muted);
+      margin-top: .1rem;
+    } */
+
     /* ── TABLE WRAPPER ── */
     .table-wrapper {
       margin: 0 2rem 4rem;
@@ -159,97 +217,106 @@
     }
  
     /* number columns monospace */
-    .styled-table tbody td:nth-child(3),
     .styled-table tbody td:nth-child(4),
-    .styled-table tbody td:nth-child(5) {
+    .styled-table tbody td:nth-child(5),
+    .styled-table tbody td:nth-child(6) {
       font-family: 'DM Mono', monospace;
       font-size: .84rem;
     }
  
-    /* ── EDIT LINK ── */
-    .edit-link {
+    /* ── CHECKOUT LINK ── */
+    .checkout-link {
       display: inline-block;
       text-decoration: none;
       color: var(--white);
-      background: var(--gold);
-      padding: .3rem .85rem;
+      background: var(--green);
+      padding: .35rem .9rem;
       border-radius: 6px;
-      font-size: .78rem;
-      font-weight: 500;
+      font-size: .82rem;
+      font-weight: 600;
       letter-spacing: .3px;
       transition: background .2s, transform .15s;
       white-space: nowrap;
     }
- 
-    .edit-link:hover {
-      background: var(--gold-dark);
+
+    .checkout-link:hover {
+      background: var(--green-dark);
       transform: translateY(-1px);
     }
- 
+
     /* ── SCROLL on small screens ── */
-    .scroll-x {
-      overflow-x: auto;
-    }
+    .scroll-x { overflow-x: auto; }
  
     /* ── RESPONSIVE ── */
     @media (max-width: 600px) {
       .navbar { padding: 0 1.2rem; }
+      .nav-links a { padding: .4rem .7rem; font-size: .8rem; }
       .table-wrapper { margin: 0 .8rem 3rem; }
+      .page-header { margin: 1.5rem 1rem 1.2rem; gap: 1rem; }
       .styled-table thead th,
       .styled-table tbody td { padding: .65rem .75rem; }
     }
-
-
 </style>
-   <nav class="navbar">
-     <a href="{% url 'dashboard' %}" style="text-decoration:none;">
-   <div class="logo">
+
+<nav class="navbar">
+  <a href="{% url 'dashboard' %}" style="text-decoration:none;">
+    <div class="logo">
       <div class="logo-icon">🔩</div>
       NYONDO <span>HARDWARE</span>
     </div>
   </a>
   <ul class="nav-links">
-     <li><a href="/add">Add Stock</a></li>
+    <li><a href="/add">Add Stock</a></li>
     <li><a href="/add1">Add Sale</a></li>
-    <!-- <li><a href="/add2">Add Deposit</a></li> -->
     <li><a href="/add3">Register Customer</a></li>
+    <li><a href="/logout">Logout</a></li>
   </ul>
 </nav>
-<div>
-  <h2 style="text-align: center;">VIEW ALL SALES</h2>
+
+<!-- PAGE HEADER with total sales card -->
+<div class="page-header">
+  <h2>VIEW ALL SALES</h2>
+  <div class="summary-card">
+    <span class="summary-label">Total Sales</span>
+    <span class="summary-value" pattern="UGX">UGX</span>
+ 
+  </div>
 </div>
 
-    
+<!-- TABLE -->
+<div class="table-wrapper">
+  <div class="scroll-x">
     <table class="styled-table">
-        <thead>
-            <tr>
-                <th>Customer Name</th>
-                <th>Category</th>
-                <th>Product Name</th>
-                <th>Quantity</th>
-                <th>Unit Price</th>
-                <th>Total Price</th>
-                <th>Payment Method</th>
-                 <th>Action</th>
-            </tr>
-            </thead>
-            {% for sale in sale %}
-            <tbody>
-            <tr>
-                
-                <td>{{sale.customer_name}}</td>
-                <td>{{sale.category}}</td>
-                <td>{{sale.product_name}}</td>
-                <td>{{sale.quantity}}</td>
-                <td>{{sale.unit_price}}</td>
-                <td>{{sale.total_price}}</td>
-                <td>{{sale.payment_method}}</td><td><a style="color: #ffffff; text-decoration: none; font-size: .95rem; font-weight: 600; letter-spacing: .3px; padding: .35rem .9rem; background: #1a7a4a; border-radius: 6px; display: inline-block;" href="{% url 'sale_detail' sale.pk %}">CheckOut</a></td>
-                
-
-             
-            </tr>
-            {% endfor %}
-        </tbody>
+      <thead>
+        <tr>
+          <th>Customer Name</th>
+          <th>Category</th>
+          <th>Product Name</th>
+          <th>Quantity</th>
+          <th>Unit Price</th>
+          <th>Total Price</th>
+          <th>Payment Method</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for sale in sale %}
+        <tr>
+          <td>{{ sale.customer_name }}</td>
+          <td>{{ sale.category }}</td>
+          <td>{{ sale.product_name }}</td>
+          <td>{{ sale.quantity }}</td>
+          <td>{{ sale.unit_price }}</td>
+          <td>{{ sale.total_price }}</td>
+          <td>{{ sale.payment_method }}</td>
+          <td>
+            <a class="checkout-link" href="{% url 'sale_detail' sale.pk %}">CheckOut</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
     </table>
-    
+  </div>
+</div>
+
 {% endblock %}

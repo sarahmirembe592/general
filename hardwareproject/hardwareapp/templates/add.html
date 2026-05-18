@@ -23,83 +23,71 @@
       color: var(--text);
       min-height: 100vh;
     }
- 
-    /* ── NAVBAR ── */
-    .navbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 2.5rem;
-      height: 68px;
-      background: var(--green);
-      box-shadow: 0 2px 12px rgba(0,0,0,.15);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
- 
-    /* .logo {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.35rem;
-      color: var(--white);
-    } */
      
-  
-    /* ── NAVBAR ── */
-    .navbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 2.5rem;
-      height: 68px;
-      background: var(--green);
-      box-shadow: 0 2px 12px rgba(0,0,0,.15);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
+ /* ── NAVBAR ── */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2.5rem;
+  height: 68px;
+  background: var(--green);
+  box-shadow: 0 2px 12px rgba(0,0,0,.15);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
 
-    .logo {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.45rem;
-      letter-spacing: 3px;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+/* ── LOGO ── */
+.logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.45rem;
+  letter-spacing: 3px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 
-    .logo-icon {
-      width: 36px; height: 36px;
-      background: var(--gold);
-      border-radius: 8px;
-      display: grid; place-items: center;
-      font-size: 18px;
-    }
+.logo span { color: var(--gold); }
 
-    .logo span { color: var(--gold); }
+.logo-icon {
+  width: 36px; height: 36px;
+  background: var(--gold);
+  border-radius: 8px;
+  display: grid; place-items: center;
+  font-size: 18px;
+}
 
-    .nav-links {
-      list-style: none;
-      display: flex;
-      gap: .4rem;
-    }
+/* ── NAV LINKS ── */
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: .4rem;
+}
 
-    .nav-links a {
-      text-decoration: none;
-      color: rgba(255,255,255,.8);
-      font-size: .88rem;
-      font-weight: 500;
-      padding: .45rem 1rem;
-      border-radius: 8px;
-      border: 1px solid transparent;
-      transition: all .2s;
-    }
+.nav-links a {
+  text-decoration: none;
+  color: rgba(255,255,255,.8);
+  font-size: .88rem;
+  font-weight: 500;
+  padding: .45rem 1rem;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  transition: all .2s;
+}
 
-    .nav-links a:hover {
-      background: rgba(255,255,255,.15);
-      color: #fff;
-    }
+.nav-links a:hover {
+  background: rgba(255,255,255,.15);
+  color: #fff;
+  border-color: rgba(255,255,255,.2);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 560px) {
+  .navbar { padding: 0 1.2rem; }
+  .nav-links a { padding: .4rem .7rem; font-size: .8rem; }
+}
  
     /* ── CONTAINER = the white card ── */
     .container {
@@ -153,7 +141,7 @@
       text-transform: uppercase;
       letter-spacing: 1px;
       color: var(--white);
-      background: var(--green);
+      background: var(--gold);
       padding: .45rem 1rem;
       border-radius: 6px;
       margin-top: .5rem;
@@ -245,6 +233,21 @@
       form { padding: 0 1.4rem; grid-template-columns: 1fr; }
     }
 
+    input[required]:placeholder-shown {
+      border: 2px solid red;
+      
+    }
+
+    select[required]:invalid {
+      border: 2px solid red;
+    }
+    number[required]:invalid {
+      border: 2px solid red;
+    }
+    datetime-local[required]:placeholder-shown {
+      border: 2px solid red;
+    }
+
 
 
     </style>
@@ -252,15 +255,17 @@
 
 <body>
 <nav class="navbar">
+  <a href="{% url 'dashboard' %}" style="text-decoration:none;">
     <div class="logo">
       <div class="logo-icon">🔩</div>
       NYONDO <span>HARDWARE</span>
-    </div>
+    </div></a>
   <ul class="nav-links">
     <li><a href="/">Stock</a></li>
     <li><a href="/home1">Sales</a></li>
     <!-- <li><a href="/home2">Home2</a></li> -->
     <li><a href="/home3">customer's List</a></li>
+     <li><a href="/logout">Logout</a></li>
 
     
   </ul>
@@ -278,13 +283,13 @@
 
 <div class="col">
     <label>Item Name</label>
-    <input type="text" name="item_name" placeholder="Enter item name" required>
+    <input type="text" name="item_name" placeholder="Enter item name" required pattern="[A-Za-z\s]+" title="Please enter a valid name (letters and spaces only)">
 </div>
 
 <div class="col">
     <label>Unit of Measure</label>
-    <select name="unit">
-        <option>select unit of measure</option>
+    <select name="unit" placeholder="unit of measure" required>
+        <option></option>
         <option>Bags</option>
         <option>Pieces (Pcs)</option>
         <option>Kilograms (Kg)</option>
@@ -298,22 +303,22 @@
 
 <div class="col">
     <label>Item Quantity</label>
-    <input type="number" name="quantity" required>
+    <input type="number" name="quantity" required placeholder="eg 100" pattern="[0-9]+" title="Please enter a valid quantity (numbers only)">
 </div>
 
 <div class="col">
     <label>Item Unit Cost</label>
-    <input type="number" name="unit_cost" placeholder="eg 4000" required>
+    <input type="number" name="unit_cost" placeholder="eg 4000" required pattern="[0-9]+" title="Please enter a valid cost (numbers only)">
 </div>
 
 <div class="col">
     <label>Item Selling Price</label>
-    <input type="number" name="selling_price" required>
+    <input type="number" name="selling_price" required placeholder="eg 4500" pattern="[0-9]+" title="Please enter a valid selling price (numbers only)">
     
 </div>
 <div class="col">
     <label>Date</label>
-    <input type="datetime-local" name="date" required>
+    <input type="datetime-local" name="date" required placeholder="Select date and time">
     
 </div>
 
@@ -323,7 +328,7 @@
 
 <div class="col">
     <label>Item Supplier Name</label>
-    <input type="text" name="supplier" placeholder="eg Hima Cement Ltd" required>
+    <input type="text" name="supplier" placeholder="eg Hima Cement Ltd" required pattern="[A-Za-z\s]+" title="Please enter a valid name (letters and spaces only)">
 </div>
 
 <div class="col">

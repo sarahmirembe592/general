@@ -5,6 +5,7 @@ from . forms import *
 from django.contrib.auth.decorators import login_required
 
 from django.contrib.auth import authenticate,logout
+from django.db.models import Sum
 
 # Create your views here.
 @login_required
@@ -48,11 +49,21 @@ def add(request):
 @login_required
 def home1(request):
     # we fetch all the data
-    all_sale = Sale.objects.all()
-    context ={
-        'sale': all_sale, 
+    sales = Sale.objects.all()
+# aggregate() is used to calculate something from many rows.
+# The result is a dictionary where the key is 'total_price__sum' and the value is the calculated sum. 
+    total_sales = sales.aggregate(
+        Sum('total_price'))
+    
+    ['total_price__sum']
+
+    context = {
+        'sale': sales,
+        'total_sales': total_sales
     }
+
     return render(request, 'home1.html', context)
+  
 
 
 @login_required
@@ -64,13 +75,14 @@ def add1(request):
         # address = payload.get('address')
         category = payload.get('category')
         product_name = payload.get('product_name')
-        quantity = payload.get('quantity')
-        unit_price = payload.get('unit_price')
+        quantity = int(payload.get('quantity'))
+        unit_price = int(payload.get('unit_price'))
         total_price = payload.get('total_price')
         payment_method = payload.get('payment_method')
         # receipt_number = payload.get('receipt_number')
         # date = payload.get('date')
         # name_of_sales_person = payload.get('name_of_sales_person')
+        total_price = quantity * unit_price
 
         # New sale made
         NewSale = Sale()
