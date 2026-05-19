@@ -9,16 +9,16 @@ from django.db.models import Sum
 
 # Create your views here.
 @login_required
-def home(request):
+def stock_list(request):
     # we fetch all the data
     all_stock = Stock.objects.all()
     context ={
         'stock': all_stock, 
     }
-    return render(request, 'home.html', context)
+    return render(request, 'stock_list.html', context)
 
 @login_required
-def add(request):
+def add_stock(request):
     if request.method == "POST":
         payload = request.POST
         item_name = payload.get('item_name')
@@ -43,11 +43,11 @@ def add(request):
         NewStock.specification = specification
         NewStock.payment_mode = payment_mode
         NewStock.save()
-        return redirect('home')
-    return render(request,'add.html')
+        return redirect('stock_list')
+    return render(request,'add_stock.html')
 
 @login_required
-def home1(request):
+def sales_list(request):
     # we fetch all the data
     sales = Sale.objects.all()
 # aggregate() is used to calculate something from many rows.
@@ -62,12 +62,12 @@ def home1(request):
         'total_sales': total_sales
     }
 
-    return render(request, 'home1.html', context)
+    return render(request, 'sales_list.html', context)
   
 
 
 @login_required
-def add1(request):
+def add_sale(request):
     if request.method == 'POST':
         payload = request.POST
         customer_name = payload.get('customer_name')
@@ -91,21 +91,21 @@ def add1(request):
         NewSale.total_price = total_price
         NewSale.payment_method = payment_method
         NewSale.save()
-        return redirect('home1')
-    return render(request,'add1.html')
+        return redirect('sale_list')
+    return render(request,'add_sale.html')
 
 
 @login_required
-def home3(request):
+def customer_list(request):
     all_register = Register.objects.all()
     context = {
         'register': all_register,
     }
-    return render(request, 'home3.html',context)
+    return render(request, 'customer_list.html',context)
 
 
 @login_required
-def add3(request):
+def add_customer(request):
     if request.method == 'POST':
         payload = request.POST
         name = payload.get('name')
@@ -130,8 +130,8 @@ def add3(request):
         NewRegister.payment_method = payment_method
 
         NewRegister.save()
-        return redirect('home3')
-    return render(request,'add3.html')
+        return redirect('customer_list')
+    return render(request,'add_customer.html')
 
 
 # Receipt for sales
@@ -139,8 +139,10 @@ def add3(request):
 def sale_detail(request,pk):
     # Fetching all specific entry using primary key(pk)
     entry = get_object_or_404(Sale,pk=pk)
-    return render(request,'home4.html',{'entry': entry})
+    return render(request,'receipt.html',{'entry': entry})
 # Receipt for credit scheme
+
+@login_required
 def customer_detail(request,pk):
     # Fetching all specific entry using primary key(pk)
     entry = get_object_or_404(Register,pk=pk)
@@ -159,7 +161,7 @@ def stock_review(request,pk):
         # Save changes if form data is valid
         if form.is_valid():
             form.save()
-            return redirect('home')
+            return redirect('add_stock')
     else:
         form = StockeditForm(instance = entry)
     
@@ -177,7 +179,7 @@ def deposit_review(request,pk):
        
         if form.is_valid():
             form.save()
-            return redirect('home3')
+            return redirect('add_customer')
     else:
         form = DepositeditForm(instance = entry)
 
@@ -191,11 +193,11 @@ def deposit_review(request,pk):
 def dashboard(request):
     return render(request, 'dashboard.html')
 
-
+@login_required
 def logout_view(request):
     logout(request)
     return redirect('dashboard')
-
+@login_required
 def contact(request):
     return render(request, 'contact.html')
     

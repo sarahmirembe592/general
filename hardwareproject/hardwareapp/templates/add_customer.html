@@ -249,11 +249,10 @@
       NYONDO <span>HARDWARE</span>
     </div></a>
   <ul class="nav-links">
-    <li><a href="/">Stock</a></li>
-    <li><a href="/home1">Sales</a></li>
-    <!-- <li><a href="/home2">Home2</a></li> -->
-    <li><a href="/home3">Customer's List</a></li>
-     <li><a href="/logout">Logout</a></li>
+    <li><a href="{% url 'stock_list' %}">Stock</a></li>
+    <li><a href="{% url 'sales_list' %}">Sales</a></li>
+    <li><a href="{% url 'customer_list' %}">Customer's List</a></li>
+     <li><a href="{% url 'logout' %}">Logout</a></li>
     
   </ul>
   </nav>
@@ -265,7 +264,7 @@
     <!-- Registration Form -->
     <div class="card">
         <h2>Customer Registration</h2>
-        <form method="POST" action="{% url 'add3'%}">
+        <form method="POST" action="{% url 'add_customer'%}">
             {% csrf_token %}
             <label>Full Name</label>
             <input type="text" name="name" placeholder="Enter full name" required pattern="[A-Za-z\s]+" title="Please enter a valid name (letters and spaces only)">

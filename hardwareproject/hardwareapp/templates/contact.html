@@ -218,10 +218,10 @@
       NYONDO <span>HARDWARE</span>
     </a>
     <ul class="nav-links">
-      <li><a href="/">Stock</a></li>
-      <li><a href="/home1">Sales</a></li>
-      <li><a href="/home3">Customer's List</a></li>
-      <li><a href="/logout">Logout</a></li>
+      <li><a href="{% url 'stock_list' %}">Stock</a></li>
+      <li><a href="{% url 'sales_list' %}">Sales</a></li>
+      <li><a href="{% url 'customer_list' %}">Customer's List</a></li>
+      <li><a href="{% url 'logout' %}">Logout</a></li>
     </ul>
   </nav>
 

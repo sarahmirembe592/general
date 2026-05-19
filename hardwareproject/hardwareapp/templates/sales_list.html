@@ -266,11 +266,11 @@
     </div>
   </a>
   <ul class="nav-links">
-    <li><a href="/add">Add Stock</a></li>
-    <li><a href="/add1">Add Sale</a></li>
-    <li><a href="/add3">Register Customer</a></li>
-    <li><a href="/contact">Contact Us</a></li>
-    <li><a href="/logout">Logout</a></li>
+    <li><a href="{% url 'add_stock' %}">Add Stock</a></li>
+    <li><a href="{% url 'add_sale' %}">Add Sale</a></li>
+    <li><a href="{% url 'add_customer' %}">Register Customer</a></li>
+    <li><a href="{% url 'contact' %}">Contact Us</a></li>
+    <li><a href="{% url 'logout' %}">Logout</a></li>
   </ul>
 </nav>
 

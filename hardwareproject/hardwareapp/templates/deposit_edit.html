@@ -226,10 +226,9 @@
       NYONDO <span>HARDWARE</span>
     </div></a>
   <ul class="nav-links">
-     <li><a href="/add3">Add Customer</a></li>
-    <li><a href="/home3">View Customer</a></li>
-     <li><a href="/logout">Logout</a></li>
-    <!-- <li><a href="/add2">Add Deposit</a></li> --> 
+     <li><a href="{% url 'add_customer' %}">Add Customer</a></li>
+    <li><a href="{% url 'customer_list' %}">View Customer</a></li>
+     <li><a href="{% url 'logout' %}">Logout</a></li>
   </ul>
 </nav>
 <div class="page">
@@ -242,7 +241,7 @@
         {{form.as_p}}
 
         <!-- Submit -->
-        <button type="submit"><a style="color: white; text-decoration: none;" href="{% url 'home3'%}">Update Deposit</a></button>
+        <button type="submit"><a style="color: white; text-decoration: none;" href="{% url 'customer_list' %}">Update Deposit</a></button>
 
     </form>
     </div>
