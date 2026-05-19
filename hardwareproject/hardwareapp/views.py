@@ -79,51 +79,20 @@ def add1(request):
         unit_price = int(payload.get('unit_price'))
         total_price = payload.get('total_price')
         payment_method = payload.get('payment_method')
-        # receipt_number = payload.get('receipt_number')
-        # date = payload.get('date')
-        # name_of_sales_person = payload.get('name_of_sales_person')
         total_price = quantity * unit_price
 
         # New sale made
         NewSale = Sale()
         NewSale.customer_name = customer_name
-        # NewSale.phone_number = phone_number
-        # NewSale.address = address
         NewSale.category = category
         NewSale.product_name = product_name
         NewSale.quantity = quantity
         NewSale.unit_price = unit_price
         NewSale.total_price = total_price
         NewSale.payment_method = payment_method
-        # NewSale.receipt_number = receipt_number
-        # NewSale.date = date
-        # NewSale.name_of_sales_person = name_of_sales_person
         NewSale.save()
         return redirect('home1')
     return render(request,'add1.html')
-        
-# def home2(request):
-#     all_deposit = Deposit.objects.all()
-#     context = {
-#         'deposit': all_deposit,
-#     }
-#     return render(request, 'home2.html', context)
-
-# def add2(request):
-#     if request.method == 'POST':
-#         payload = request.POST
-#         customer_nin = payload.get('customer_nin')
-#         select_product = payload.get('select_product')
-#         amount = payload.get('amount')
-
-#         # New deposit
-#         NewDeposit = Deposit()
-#         NewDeposit.customer_nin = customer_nin
-#         NewDeposit.select_product = select_product
-#         NewDeposit.amount = amount
-#         NewDeposit.save()
-#         return redirect('home2')
-#     return render(request,'add2.html')
 
 
 @login_required
@@ -226,6 +195,9 @@ def dashboard(request):
 def logout_view(request):
     logout(request)
     return redirect('dashboard')
+
+def contact(request):
+    return render(request, 'contact.html')
     
 
 

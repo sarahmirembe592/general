@@ -43,6 +43,7 @@ urlpatterns = [
     path('dashboard/',views.dashboard, name='dashboard'),
 # Created a url that handles login and log out
     path('accounts/',include('django.contrib.auth.urls')),
-    path('logout/',views.logout_view, name='logout_view')
+    path('logout/',views.logout_view, name='logout_view'),
+    path('contact/',views.contact, name='contact'),
 
 ]

@@ -237,6 +237,7 @@
     <li><a href="/add1">Add Sale</a></li>
     <!-- <li><a href="/add2">Add Deposit</a></li> -->
     <li><a href="/add3">Register Customer</a></li>
+    <li><a href="/contact">Contact Us</a></li>
      <li><a href="/logout">Logout</a></li>
     
   </ul>
@@ -258,6 +259,7 @@
       <th scope="col">Product Spec.</th>
       <th scope="col">Payment Mode</th>
       <th scope="col">Review Item</th>
+      <th scope="col">Delete Item</th>
 
     </tr>
   </thead>
@@ -274,7 +276,8 @@
       <td>{{stock.supplier}}</td>
       <td>{{stock.specification}}</td>
       <td>{{stock.payment_mode}}</td>
-      <td><a style="text-decoration: none; color: orange;" href="{% url 'stock_review' stock.pk %}">Edit</a></td>
+      <td><a  style="text-decoration: none; color: orange;" href="{% url 'stock_review' stock.pk %}">Edit</a></td>
+      <td><a href="">Delete</a></td>
     </tr>
     {% endfor %}
     </tbody>
