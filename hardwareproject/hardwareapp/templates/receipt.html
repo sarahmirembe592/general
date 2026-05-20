@@ -182,13 +182,6 @@
     }
  
     /* ── FOOTER ── */
-    .footer {
-      background: var(--green-light);
-      margin: 0 2.2rem 1.8rem;
-      border-radius: 10px;
-      padding: 1rem 1.2rem;
-      border: 1px dashed var(--border);
-    }
  
     .footer p {
       font-size: .8rem;
@@ -297,11 +290,11 @@
 
 <div class="footer">
     <p>Once good sold not returnable</p>
-    <p>Customer signature: ____________</p>
     <p>Served by: Nyondo Management</p>
 </div>
-<a style="color: orange; text-decoration: none;" href="{% url 'add_sale' %}">Return to Add a Sale</a>
+
 </div>
+<a style="color: orange; text-decoration: none; margin-left: 150px;" href="{% url 'add_sale' %}">Return to Add a Sale</a>
 </div>
 
 {% endblock %} 

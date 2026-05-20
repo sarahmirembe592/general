@@ -219,7 +219,112 @@
       .table-wrapper { margin: 0 .8rem 3rem; }
       .styled-table thead th,
       .styled-table tbody td { padding: .65rem .75rem; }
-    }   
+    } 
+    
+    /* ── SEARCH FORM ── */
+.search-form {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    max-width: 480px;
+    margin: 1.5rem auto;
+    padding: 0 1rem;
+}
+
+.search-form input {
+    flex: 1;
+    padding: .6rem 1rem;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    font-size: .88rem;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text);
+    background: var(--white);
+    outline: none;
+    transition: border-color .2s;
+}
+
+.search-form input:focus {
+    border-color: var(--green);
+}
+
+.search-form button {
+    background: var(--green);
+    color: #fff;
+    border: none;
+    padding: .6rem 1.3rem;
+    border-radius: 8px;
+    font-size: .88rem;
+    font-weight: 500;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    transition: background .2s;
+}
+
+.search-form button:hover {
+    background: var(--green-dark);
+}
+
+.search-form .clear-link {
+    color: var(--gold);
+    font-size: .85rem;
+    text-decoration: none;
+    white-space: nowrap;
+    font-weight: 500;
+}
+
+.search-form .clear-link:hover {
+    color: var(--gold-dark);
+}
+   .page-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      margin: 2.2rem 2rem 1.6rem;
+      flex-wrap: wrap;
+    }
+
+    .page-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.7rem;
+      color: var(--green-dark);
+      letter-spacing: .3px;
+      position: relative;
+    }
+
+    .page-header h2::after {
+      content: '';
+      display: block;
+      width: 55px;
+      height: 3px;
+      background: var(--gold);
+      border-radius: 2px;
+      margin: .5rem auto 0;
+    }
+
+    /* ── TOTAL SALES CARD ── */
+    .summary-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: var(--white);
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      padding: .7rem 1.6rem;
+      border-top: 4px solid var(--gold);
+      min-width: 200px;
+    }
+
+    .summary-card .summary-label {
+      font-size: .67rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.1px;
+      color: var(--muted);
+    }
+
 </style>
   <nav class="navbar">
   <a href="{% url 'dashboard' %}" style="text-decoration:none;">
@@ -232,13 +337,31 @@
      <li><a href="{% url 'add_stock' %}">Add Stock</a></li>
     <li><a href="{% url 'add_sale' %}">Add Sale</a></li>
     <li><a href="{% url 'add_customer' %}">Register Customer</a></li>
-    <li><a href="{% url 'contact' %}">Contact Us</a></li>
-     <li><a href="{% url 'logout' %}">Logout</a></li>
+     <li><a href="{% url 'logout_view' %}">Logout</a></li>
   </ul>
 </nav>
-<div>
-  <h2 style="text-align: center;">ALL CUSTOMERS IN SCHEME</h2>
+
+<div class="page-header">
+  <h2>VIEW ALL CUSTOMERS IN SCHEME</h2>
+  <div class="summary-card">
+    <span class="summary-label">Total Amount Deposited</span>
+    <span class="summary-value">UGX {{ grand_total }}</span>
+ 
+  </div>
 </div>
+
+<form method="GET" action="{% url 'customer_list' %}" class="search-form">
+    <input
+        type="text"
+        name="search"
+        placeholder="Search by name, product, phone..."
+        value="{{ search_query }}"
+    />
+    <button type="submit">Search</button>
+    {% if search_query %}
+        <a style="color: #ffffff; text-decoration: none; font-size: .95rem; font-weight: 600; letter-spacing: .3px; padding: .35rem .9rem; background: gold; border-radius: 6px; display: inline-block;" href="{% url 'customer_list' %}" class="clear-link">✕ Clear</a>
+    {% endif %}
+</form>
     
 <table class="styled-table">
     <thead>

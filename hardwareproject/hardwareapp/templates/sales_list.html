@@ -139,7 +139,7 @@
       color: var(--green-dark);
       font-family: 'DM Mono', monospace;
       margin-top: .2rem;
-    } */
+    } 
 
     /* .summary-card .summary-sub {
       font-size: .68rem;
@@ -256,6 +256,67 @@
       .styled-table thead th,
       .styled-table tbody td { padding: .65rem .75rem; }
     }
+    
+
+    /* ── SEARCH FORM ── */
+.search-form {
+    display: flex;
+    align-items: left;
+    gap: .6rem;
+    max-width: 480px;
+    margin: 1.5rem auto;
+    padding: 0 1rem;
+}
+
+.search-form input {
+    flex: 1;
+    padding: .6rem 1rem;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    font-size: .88rem;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text);
+    background: var(--white);
+    outline: none;
+    transition: border-color .2s;
+}
+
+.search-form input:focus {
+    border-color: var(--green);
+}
+
+.search-form button {
+    background: var(--green);
+    color: #fff;
+    border: none;
+    padding: .6rem 1.3rem;
+    border-radius: 8px;
+    font-size: .88rem;
+    font-weight: 500;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    transition: background .2s;
+}
+
+.search-form button:hover {
+    background: var(--green-dark);
+}
+
+.search-form .clear-link {
+    color: var(--gold);
+    font-size: .85rem;
+    text-decoration: none;
+    white-space: nowrap;
+    font-weight: 500;
+}
+
+.search-form .clear-link:hover {
+    color: var(--gold-dark);
+}
+
+
+
+
 </style>
 
 <nav class="navbar">
@@ -269,8 +330,7 @@
     <li><a href="{% url 'add_stock' %}">Add Stock</a></li>
     <li><a href="{% url 'add_sale' %}">Add Sale</a></li>
     <li><a href="{% url 'add_customer' %}">Register Customer</a></li>
-    <li><a href="{% url 'contact' %}">Contact Us</a></li>
-    <li><a href="{% url 'logout' %}">Logout</a></li>
+    <li><a href="{% url 'logout_view' %}">Logout</a></li>
   </ul>
 </nav>
 
@@ -279,10 +339,24 @@
   <h2>VIEW ALL SALES</h2>
   <div class="summary-card">
     <span class="summary-label">Total Sales</span>
-    <span class="summary-value" pattern="UGX">UGX</span>
+    <span class="summary-value">UGX {{ grand_total }}</span>
  
   </div>
 </div>
+
+<form class="search-form" method="GET" action="{% url 'sales_list' %}">
+    <input 
+        type="text" 
+        name="search" 
+        placeholder="Search by product name..." 
+        value="{{ search_query }}"
+    />
+    <button type="submit">Search</button>
+    {% if search_query %}
+        <a style="color: #ffffff; text-decoration: none; font-size: .95rem; font-weight: 600; letter-spacing: .3px; padding: .35rem .9rem; background: gold; border-radius: 6px; display: inline-block;" href="{% url 'sales_list' %}">Clear</a>
+    {% endif %}
+</form>
+
 
 <!-- TABLE -->
 <div class="table-wrapper">

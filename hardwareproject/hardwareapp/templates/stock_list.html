@@ -3,29 +3,30 @@
 
 {% block content %}
 <style>
-   :root {
-      --green:       #1a7a4a;
-      --green-dark:  #145c37;
-      --green-light: #e8f5ee;
-      --gold:        #c9a84c;
-      --gold-dark:   #b8923d;
-      --bg:          #f0f4f2;
-      --white:       #ffffff;
-      --text:        #1c2b22;
-      --muted:       #6b8070;
-      --border:      #cde0d5;
-      --shadow:      0 6px 32px rgba(26,122,74,.11);
-    }
- 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
- 
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-    }
- /* ── NAVBAR ── */
+:root {
+  --green:       #1a7a4a;
+  --green-dark:  #145c37;
+  --green-light: #e8f5ee;
+  --gold:        #c9a84c;
+  --gold-dark:   #b8923d;
+  --bg:          #f0f4f2;
+  --white:       #ffffff;
+  --text:        #1c2b22;
+  --muted:       #6b8070;
+  --border:      #cde0d5;
+  --shadow:      0 6px 32px rgba(26,122,74,.11);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* ── NAVBAR ── */
 .navbar {
   display: flex;
   align-items: center;
@@ -39,7 +40,6 @@
   z-index: 100;
 }
 
-/* ── LOGO ── */
 .logo {
   font-family: 'Bebas Neue', sans-serif;
   font-size: 1.45rem;
@@ -60,7 +60,6 @@
   font-size: 18px;
 }
 
-/* ── NAV LINKS ── */
 .nav-links {
   list-style: none;
   display: flex;
@@ -84,144 +83,217 @@
   border-color: rgba(255,255,255,.2);
 }
 
+/* ── PAGE HEADER ROW ── */
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 2rem 2rem 1.4rem;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.page-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.7rem;
+  color: var(--green-dark);
+  position: relative;
+}
+
+.page-title::after {
+  content: '';
+  display: block;
+  width: 55px;
+  height: 3px;
+  background: var(--gold);
+  border-radius: 2px;
+  margin: .4rem 0 0;
+}
+
+/* ── SUMMARY CARDS ── */
+.summary-card {
+  background: var(--white);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  padding: .6rem 1.2rem;
+  min-width: 160px;
+  text-align: center;
+}
+
+.summary-card.green-top { border-top: 4px solid var(--green); }
+.summary-card.gold-top  { border-top: 4px solid var(--gold); }
+
+.summary-label {
+  font-size: .65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--muted);
+}
+
+.summary-value {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--green-dark);
+  font-family: 'DM Mono', monospace;
+  margin-top: .2rem;
+}
+
+/* ── SEARCH FORM ── */
+.search-form {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  flex-wrap: wrap;
+}
+
+.search-form input {
+  padding: .6rem 1rem;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-size: .88rem;
+  font-family: 'DM Sans', sans-serif;
+  color: var(--text);
+  background: var(--white);
+  outline: none;
+  width: 260px;
+  transition: border-color .2s;
+}
+
+.search-form input:focus {
+  border-color: var(--green);
+}
+
+.search-form button {
+  background: var(--green);
+  color: #fff;
+  border: none;
+  padding: .6rem 1.3rem;
+  border-radius: 8px;
+  font-size: .88rem;
+  font-weight: 500;
+  font-family: 'DM Sans', sans-serif;
+  cursor: pointer;
+  transition: background .2s;
+}
+
+.search-form button:hover {
+  background: var(--green-dark);
+}
+
+.clear-btn {
+  color: #fff;
+  text-decoration: none;
+  font-size: .88rem;
+  font-weight: 600;
+  padding: .6rem .9rem;
+  background: var(--gold);
+  border-radius: 8px;
+  transition: background .2s;
+}
+
+.clear-btn:hover { background: var(--gold-dark); }
+
+/* ── TABLE WRAPPER ── */
+.table-wrapper {
+  margin: 0 2rem 4rem;
+  background: var(--white);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  animation: slideUp .45s ease both;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.table-wrapper::before {
+  content: '';
+  display: block;
+  height: 6px;
+  background: linear-gradient(90deg, var(--green) 0%, var(--gold) 100%);
+}
+
+/* ── TABLE ── */
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .88rem;
+}
+
+.styled-table thead tr {
+  background: var(--green);
+}
+
+.styled-table thead th {
+  color: #fff;
+  font-size: .72rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: .7px;
+  padding: .85rem 1.1rem;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.styled-table tbody tr {
+  border-bottom: 1px solid var(--border);
+  transition: background .15s;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+  background: var(--green-light);
+}
+
+.styled-table tbody tr:last-of-type {
+  border-bottom: none;
+}
+
+.styled-table tbody tr:hover {
+  background: #d4eddf;
+}
+
+.styled-table tbody td {
+  padding: .8rem 1.1rem;
+  color: var(--text);
+  font-size: .88rem;
+  vertical-align: middle;
+}
+
+.styled-table tbody td:nth-child(3),
+.styled-table tbody td:nth-child(4),
+.styled-table tbody td:nth-child(5) {
+  font-family: 'DM Mono', monospace;
+  font-size: .84rem;
+}
+
+/* ── SCROLL ── */
+.scroll-x { overflow-x: auto; }
+
 /* ── RESPONSIVE ── */
-@media (max-width: 560px) {
+@media (max-width: 900px) {
+  .page-header { flex-direction: column; align-items: flex-start; }
+  .search-form input { width: 200px; }
+}
+
+@media (max-width: 600px) {
   .navbar { padding: 0 1.2rem; }
   .nav-links a { padding: .4rem .7rem; font-size: .8rem; }
+  .table-wrapper { margin: 0 .8rem 3rem; }
+  .page-header { margin: 1.5rem 1rem 1.2rem; }
+  .styled-table thead th,
+  .styled-table tbody td { padding: .65rem .75rem; }
+  .search-form input { width: 100%; }
 }
- 
-    /* ── PAGE HEADING ── */
-    .page-title {
-      text-align: center;
-      margin: 2.2rem 0 1.6rem;
-    }
- 
-    .page-title h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.7rem;
-      color: var(--green-dark);
-      letter-spacing: .3px;
-    }
- 
-    .page-title h2::after {
-      content: '';
-      display: block;
-      width: 55px;
-      height: 3px;
-      background: var(--gold);
-      border-radius: 2px;
-      margin: .5rem auto 0;
-    }
- 
-    /* ── TABLE WRAPPER ── */
-    .table-wrapper {
-      margin: 0 2rem 4rem;
-      background: var(--white);
-      border-radius: 16px;
-      box-shadow: var(--shadow);
-      overflow: hidden;
-      animation: slideUp .45s ease both;
-    }
- 
-    @keyframes slideUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
- 
-    /* top accent bar */
-    .table-wrapper::before {
-      content: '';
-      display: block;
-      height: 6px;
-      background: linear-gradient(90deg, var(--green) 0%, var(--gold) 100%);
-    }
- 
-    /* ── TABLE ── */
-    .styled-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: .88rem;
-    }
- 
-    .styled-table thead tr {
-      background: var(--green);
-    }
- 
-    .styled-table thead th {
-      color: #fff;
-      font-size: .72rem;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: .7px;
-      padding: .85rem 1.1rem;
-      text-align: left;
-      white-space: nowrap;
-    }
- 
-    .styled-table tbody tr {
-      border-bottom: 1px solid var(--border);
-      transition: background .15s;
-    }
- 
-    .styled-table tbody tr:nth-of-type(even) {
-      background: var(--green-light);
-    }
- 
-    .styled-table tbody tr:last-of-type {
-      border-bottom: none;
-    }
- 
-    .styled-table tbody tr:hover {
-      background: #d4eddf;
-    }
- 
-    .styled-table tbody td {
-      padding: .8rem 1.1rem;
-      color: var(--text);
-      font-size: .88rem;
-      vertical-align: middle;
-    }
- 
-    /* number columns monospace */
-    .styled-table tbody td:nth-child(3),
-    .styled-table tbody td:nth-child(4),
-    .styled-table tbody td:nth-child(5) {
-      font-family: 'DM Mono', monospace;
-      font-size: .84rem;
-    }
- 
-    /* ── EDIT LINK ── */
-    .edit-link {
-      display: inline-block;
-      text-decoration: none;
-      color: var(--white);
-      background: var(--gold);
-      padding: .3rem .85rem;
-      border-radius: 6px;
-      font-size: .78rem;
-      font-weight: 500;
-      letter-spacing: .3px;
-      transition: background .2s, transform .15s;
-      white-space: nowrap;
-    }
- 
-    .edit-link:hover {
-      background: var(--gold-dark);
-      transform: translateY(-1px);
-    }
- 
-    /* ── SCROLL on small screens ── */
-    .scroll-x {
-      overflow-x: auto;
-    }
- 
-    /* ── RESPONSIVE ── */
-    @media (max-width: 600px) {
-      .navbar { padding: 0 1.2rem; }
-      .table-wrapper { margin: 0 .8rem 3rem; }
-      .styled-table thead th,
-      .styled-table tbody td { padding: .65rem .75rem; }
-    }
 
 </style>
 
@@ -236,13 +308,33 @@
     <li><a href="{% url 'add_stock' %}">Add Stock</a></li>
     <li><a href="{% url 'add_sale' %}">Add Sale</a></li>
     <li><a href="{% url 'add_customer' %}">Register Customer</a></li>
-    <li><a href="{% url 'contact' %}">Contact Us</a></li>
-     <li><a href="{% url 'logout' %}">Logout</a></li>
+     <li><a href="{% url 'logout_view' %}">Logout</a></li>
     
   </ul>
 </nav>
-<div>
-  <h2 style="text-align: center;">STOCK MANAGEMENT</h2>
+<div class="page-header">
+  <div class="header-left">
+    <h2 class="page-title">STOCK MANAGEMENT</h2>
+
+    <div class="summary-card green-top">
+      <div class="summary-label">Total Unit Cost</div>
+      <div class="summary-value">UGX {{ total_unit_cost }}</div>
+    </div>
+
+    <div class="summary-card gold-top">
+      <div class="summary-label">Total Selling Price</div>
+      <div class="summary-value">UGX {{ total_selling_price}}</div>
+    </div>
+  </div>
+
+  <!-- Right: search -->
+  <form class="search-form" method="GET" action="{% url 'stock_list' %}">
+    <input type="text" name="search" placeholder="Search by product or supplier..." value="{{ search_query }}" />
+    <button type="submit">Search</button>
+    {% if search_query %}
+      <a class="clear-btn" href="{% url 'stock_list' %}">Clear</a>
+    {% endif %}
+  </form>
 </div>
   
 <table class="styled-table">
@@ -275,8 +367,8 @@
       <td>{{stock.supplier}}</td>
       <td>{{stock.specification}}</td>
       <td>{{stock.payment_mode}}</td>
-      <td><a  style="text-decoration: none; color: orange;" href="{% url 'stock_review' stock.pk %}">Edit</a></td>
-      <td><a href="">Delete</a></td>
+      <td><a  style="color: #ffffff; text-decoration: none; font-size: .95rem; font-weight: 600; letter-spacing: .3px; padding: .35rem .9rem; background: orange; border-radius: 6px; display: inline-block;" href="{% url 'stock_review' stock.pk %}">Edit</a></td>
+      <td><a style="color: #ffffff; text-decoration: none; font-size: .95rem; font-weight: 600; letter-spacing: .3px; padding: .35rem .9rem; background: red; border-radius: 6px; display: inline-block;" href="">Delete</a></td>
     </tr>
     {% endfor %}
     </tbody>

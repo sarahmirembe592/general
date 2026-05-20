@@ -188,18 +188,11 @@
     }
  
     /* ── FOOTER ── */
-    .footer {
-      background: var(--green-light);
-      margin: 0 2.2rem 1.8rem;
-      border-radius: 10px;
-      padding: 1rem 1.2rem;
-      border: 1px dashed var(--border);
-    }
  
     .footer p {
       font-size: .8rem;
-      color: var(--muted);
-      line-height: 1.9;
+      /* color: var(--muted); */
+      /* line-height: 1.9; */
     }
  
     .footer p:first-child {
@@ -276,7 +269,7 @@
 <div class="details">
     <p><strong>Receipt No:</strong> {{ entry.id }}</p>
     <p><strong>Date:</strong> {{ entry.date }}</p>
-    <p><strong>Customer Name:</strong> {{ entry.customer_name }}</p>
+    <p><strong>Customer Name:</strong> {{ entry.name }}</p>
     
 </div>
 
@@ -306,11 +299,11 @@
 
 <div class="footer">
     <p>Goods on Credit</p>
-    <p>Customer signature: ____________</p>
     <p>Served by: Nyondo Management</p>
 </div>
-<a style="color: orange; text-decoration: none;" href="{% url 'home3'%}"><<-- previous page</a>
+
 </div>
+<a style="color: orange; text-decoration: none; margin-left: 150px;" href="{% url 'customer_list' %}"><<-- previous page</a>
 </div>
 
 

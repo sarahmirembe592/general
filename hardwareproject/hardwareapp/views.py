@@ -1,3 +1,5 @@
+from urllib import request
+
 from django.shortcuts import render, redirect, get_object_or_404
 from hardwareapp.models import Stock, Sale,Register
 from . forms import *
@@ -5,15 +7,33 @@ from . forms import *
 from django.contrib.auth.decorators import login_required
 
 from django.contrib.auth import authenticate,logout
-from django.db.models import Sum
+from django.db.models import Sum, Q
 
 # Create your views here.
 @login_required
 def stock_list(request):
     # we fetch all the data
     all_stock = Stock.objects.all()
-    context ={
+
+    search_query = request.GET.get('search', '')
+
+    if search_query:
+        all_stock = all_stock.filter(
+            Q(item_name__icontains=search_query) |
+            Q(supplier__icontains=search_query)
+        )
+
+    total_unit_cost = all_stock.aggregate(Sum('unit_cost'))['unit_cost__sum'] or 0
+    total_selling_price = all_stock.aggregate(Sum('selling_price'))['selling_price__sum'] or 0
+
+  
+
+
+    context = {
         'stock': all_stock, 
+        'search_query': search_query, 
+        'total_unit_cost': total_unit_cost,
+        'total_selling_price': total_selling_price,  
     }
     return render(request, 'stock_list.html', context)
 
@@ -50,16 +70,31 @@ def add_stock(request):
 def sales_list(request):
     # we fetch all the data
     sales = Sale.objects.all()
+
+    search_query = request.GET.get('search', '')
+    
+    if search_query:
+          sales = sales.filter(
+            Q(product_name__icontains=search_query) |
+            Q(customer_name__icontains=search_query) |
+            Q(category__icontains=search_query)
+        )
+
 # aggregate() is used to calculate something from many rows.
 # The result is a dictionary where the key is 'total_price__sum' and the value is the calculated sum. 
     total_sales = sales.aggregate(
         Sum('total_price'))
     
     ['total_price__sum']
+    total_prices = [total_price for total_price in sales.values_list('total_price', flat=True)]
+    grand_total = sum(total_prices)
 
     context = {
         'sale': sales,
-        'total_sales': total_sales
+        'total_sales': total_sales,
+        'search_query': search_query,
+        'total_prices': total_prices,
+        'grand_total': grand_total,
     }
 
     return render(request, 'sales_list.html', context)
@@ -71,10 +106,11 @@ def add_sale(request):
     if request.method == 'POST':
         payload = request.POST
         customer_name = payload.get('customer_name')
-        # phone_number = payload.get('phone_number')
-        # address = payload.get('address')
+        phone_number = payload.get('phone_number')
+        address = payload.get('address')
         category = payload.get('category')
         product_name = payload.get('product_name')
+        # product_name2 = payload.get('product_name2')
         quantity = int(payload.get('quantity'))
         unit_price = int(payload.get('unit_price'))
         total_price = payload.get('total_price')
@@ -84,6 +120,8 @@ def add_sale(request):
         # New sale made
         NewSale = Sale()
         NewSale.customer_name = customer_name
+        NewSale.phone_number = phone_number
+        NewSale.address = address
         NewSale.category = category
         NewSale.product_name = product_name
         NewSale.quantity = quantity
@@ -91,17 +129,30 @@ def add_sale(request):
         NewSale.total_price = total_price
         NewSale.payment_method = payment_method
         NewSale.save()
-        return redirect('sale_list')
+        return redirect('sales_list')
     return render(request,'add_sale.html')
 
 
 @login_required
 def customer_list(request):
     all_register = Register.objects.all()
+    search_query = request.GET.get('search', '')
+    
+    if search_query:
+        all_register = all_register.filter(
+            Q(name__icontains=search_query) |
+            Q(select_product__icontains=search_query) |
+            Q(phone__icontains=search_query)
+        )
+
+    grand_total = all_register.aggregate(Sum('amount'))['amount__sum'] or 0
+
     context = {
         'register': all_register,
+        'search_query': search_query,
+        'grand_total': grand_total,
     }
-    return render(request, 'customer_list.html',context)
+    return render(request, 'customer_list.html', context)
 
 
 @login_required
@@ -196,10 +247,7 @@ def dashboard(request):
 @login_required
 def logout_view(request):
     logout(request)
-    return redirect('dashboard')
-@login_required
-def contact(request):
-    return render(request, 'contact.html')
+    return redirect('home')
     
 
 

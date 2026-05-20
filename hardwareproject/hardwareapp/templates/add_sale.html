@@ -262,7 +262,17 @@
       <label for="Customer Name">Customer Name</label>
       <input type="text" name="customer_name" class="form-control" placeholder="Full name" aria-label="Full name" required pattern="[A-Za-z\s]+" title="Please enter a valid name (letters and spaces only)">
     </div>
-   
+
+    <div class="col">
+      <label for="phone number">Phone Number</label>
+      <input type="number" name="phone_number" class="form-control" placeholder="Phone number" aria-label="Phone number" required pattern="[0-9]{10,14}$" title="Please enter a valid phone number (10-14 digits only)">
+    </div>
+
+    <div class="col">
+      <label for="address">Address</label>
+      <input type="text" name="address" class="form-control" placeholder="Address" aria-label="Address" required pattern="[A-Za-z0-9\s,-]+" title="Please enter a valid address (letters, numbers, spaces, commas, and hyphens only)">
+    </div>
+
 <!-- product details -->
     <p>PRODUCT DETAILS</p>
     <div class="col">
@@ -277,7 +287,7 @@
     </div>
     <div class="col-md-6">
       <label for="productname">Product Name</label>
-      <select class="form-select" name="product_name">
+      <select class="form-select" name="product_name" required>
         <option selected> select Product</option>
          <option value="CEM IIN">Cement - CEM IIN</option>
         <option value="CEM IIIN">Cement - CEM IIIN</option>
@@ -299,6 +309,35 @@
         <option>Iron sheets(colors & guages)</option>
       </select>
     </div>
+<!-- 
+    <p>ADD ANOTHER PRODUCT 
+      (optional)</p>
+    <div class="col-md-6">
+      <label for="productname">Product Name</label>
+      <select class="form-select" name="product_name2">
+        <option selected> select Product</option>
+         <option value="CEM IIN">Cement - CEM IIN</option>
+        <option value="CEM IIIN">Cement - CEM IIIN</option>
+
+        <option value="BAR 10MM">Iron Bar - 10MM</option>
+        <option value="BAR 12MM">Iron Bar - 12MM</option>
+        <option value="BAR 16MM">Iron Bar - 16MM</option>
+
+        <option value="NAIL 0001">Nails - 1 inch</option>
+        <option value="NAIL 0003">Nails - 3 inch</option>
+        <option value="NAIL 0004">Nails - 4 inch</option>
+        <option value="NAIL 0005">Nails - 5 inch</option>
+        <option value="ROOF NAIL">Roofing Nails</option>
+        <option value="BARBED HIGH">Barbed Wire - High Tensile</option>
+        <option value="BARBED LOW">Barbed Wire - Low Tensile</option>
+        <option>Roofing nails</option>
+        <option>Wheelbarrows</option>
+        <option>Wire mesh</option>
+        <option>Iron sheets(colors & guages)</option>
+      </select>
+    </div> -->
+
+
     <div class="row">
       <div class="col">
         <label for="quantity">Quantity</label>

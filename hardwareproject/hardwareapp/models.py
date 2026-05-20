@@ -21,18 +21,19 @@ class Stock(models.Model):
 
 
 class Sale(models.Model):
-    customer_name = models.TextField()
-    # phone_number = models.IntegerField(null=True,blank=True)
-    # address = models.TextField(null=True, blank=True)
+    customer_name = models.CharField(max_length=255)
+    phone_number = models.IntegerField(null=True,blank=True)
+    address = models.TextField(null=True, blank=True)
     category = models.CharField(max_length=255)
-    product_name = models.TextField()
+    product_name = models.CharField(max_length=255, null=True, blank=True)
+    # product_name2 = models.CharField(max_length=255, null=True, blank=True)
     quantity = models.IntegerField()
     unit_price = models.IntegerField()
     total_price = models.IntegerField()
     payment_method = models.CharField(max_length=255)
     # receipt_number = models.CharField(max_length=255)
     date = models.DateTimeField(auto_now_add=True)
-    # name_of_sales_person = models.TextField(null=True, blank=True)
+    
     
 
     def __str__(self):
