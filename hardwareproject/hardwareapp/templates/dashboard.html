@@ -466,7 +466,6 @@
     </div>
     <ul class="nav-links">
       <li><a href="/"></a></li>
-      <li><a href="/home1"></a></li>
       <li><a href="/logout">Logout</a></li>
 
     </ul>
@@ -486,10 +485,11 @@
       <div class="cards">
 
         <!-- STOCK -->
-        <a class="card card--stock" href="{% url 'home'%}">
+        <a class="card card--stock" href="{% url 'stock_list'%}">
           <div class="card-stripe"></div>
           <div class="card-body">
-            <div class="card-icon">📦</div>
+            <div class="card-icon">
+<i class="fa-solid fa-cubes-stacked fa-beat"></i></div>
             <div>
               <div class="card-title">STOCK <span>MANAGEMENT</span></div>
             </div> 
@@ -503,10 +503,10 @@
         </a>
 
         <!-- SALES -->
-        <a class="card card--sales" href="{% url 'home1'%}">
+        <a class="card card--sales" href="{% url 'sales_list'%}">
           <div class="card-stripe"></div>
           <div class="card-body">
-            <div class="card-icon">💰</div>
+            <div class="card-icon"><i class="fa-solid fa-cart-plus fa-beat"></i></div>
             <div>
               <div class="card-title">SALES <span>RECORDS</span></div>
               <p class="card-desc">View daily transactions, monitor top-selling products and sales trends.</p>
@@ -522,10 +522,10 @@
         </a>
 
         <!-- CUSTOMER SCHEME -->
-        <a class="card card--customer" href="{% url 'home3'%}" >
+        <a class="card card--customer" href="{% url 'customer_list'%}" >
           <div class="card-stripe"></div>
           <div class="card-body">
-            <div class="card-icon">🏅</div>
+            <div class="card-icon"><i class="fa-solid fa-users fa-beat"></i></div>
             <div>
               <div class="card-title">CUSTOMER <span>SCHEME</span></div>
              

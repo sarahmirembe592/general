@@ -198,9 +198,8 @@
    <nav class="navbar">
   <div class="logo">Welcome to Nyondo</div>
   <ul class="nav-links">
-     <li><a href="/add">Add Stock</a></li>
-    <li><a href="/">View Stock</a></li>
-    <!-- <li><a href="/add2">Add Deposit</a></li> -->
+     <li><a href="{% url 'add_stock' %}">Add Stock</a></li>
+    <li><a href="{% url 'stock_list' %}">View Stock</a></li>
     
     
   </ul>

@@ -3,47 +3,37 @@ URL configuration for hardwareproject project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/6.0/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path,include
+from django.urls import path, include
+from django.views.generic import RedirectView
 from hardwareapp import views
 
 urlpatterns = [
+    # Root URL - redirect to dashboard
+    path('', RedirectView.as_view(url='dashboard/', permanent=False), name='home'),
+    
     path('admin/', admin.site.urls),
-    # This url takes you to the list of all items in the Stock
-    path('',views.home, name='home'),
-    # This url leads you to the page that let's you add items in the Stock
-    path('add/',views.add, name='add'),
-    # This url takes you to the list of all items in the Sales
-    path('home1/',views.home1, name='home1'),
-    # This url leads you to the page that let's you add items in the Sale
-    path('add1/',views.add1, name='add1'),
-    # This url takes you to the list of all registered salary earners & their deposit
-    path('home3/',views.home3, name='home3'),
-    # his url leads you to the page that let's you add salary earners with their current deposits
-    path('add3/',views.add3, name='add3'),
-    # a view that will capture an id for a particular sale 
-    path('home1/<int:pk>/',views.sale_detail, name='sale_detail'),
-    path('<int:pk>/',views.stock_review, name='stock_review'),
-    # T his url leads you editing deposit
-    path('home3/<int:pk>/',views.deposit_review, name='deposit_review'),
-    # This url leads you to the customer temp receipt
-    path('home3/<int:pk>/edit/',views.customer_detail, name='customer_detail'),
-#  This url leads y
-    path('dashboard/',views.dashboard, name='dashboard'),
-# Created a url that handles login and log out
-    path('accounts/',include('django.contrib.auth.urls')),
-    path('logout/',views.logout_view, name='logout_view'),
-    path('contact/',views.contact, name='contact'),
-
+    path('dashboard/', views.dashboard, name='dashboard'),
+    
+    # Stock URLs
+    path('stock_list/', views.stock_list, name='stock_list'),
+    path('add_stock/', views.add_stock, name='add_stock'),
+    path('add_stock/<int:pk>/', views.stock_review, name='stock_review'),
+    
+    # Sales URLs
+    path('sales_list/', views.sales_list, name='sales_list'),
+    path('add_sale/', views.add_sale, name='add_sale'),
+    path('sales_list/<int:pk>/', views.sale_detail, name='sale_detail'),
+    
+    # Customer URLs
+    path('customer_list/', views.customer_list, name='customer_list'),
+    path('add_customer/', views.add_customer, name='add_customer'),
+    path('customer_list/<int:pk>/', views.deposit_review, name='deposit_review'),
+    path('customer_list/<int:pk>/edit/', views.customer_detail, name='customer_detail'),
+    
+    # Authentication & Other
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('contact/', views.contact, name='contact'),
+    path('logout/', views.logout_view, name='logout_view'),
 ]
