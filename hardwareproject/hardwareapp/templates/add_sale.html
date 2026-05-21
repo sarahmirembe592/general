@@ -383,15 +383,90 @@
       </div>
     </div> -->
     <!-- end part -->
+
+
+   <!-- DELIVERY INFORMATION -->
+    <p>DELIVERY INFORMATION</p>
+
+    <div class="col">
+      <div style="display:flex; align-items:center; gap:.7rem; padding:.75rem 1rem; background:var(--green-light); border:1.5px solid var(--border); border-radius:10px;">
+        <input type="checkbox" name="wants_delivery" id="deliveryCheckbox" style="width:18px; height:18px; accent-color:var(--green); cursor:pointer;">
+        <label for="deliveryCheckbox" style="margin:0 !important; font-size:.95rem !important; text-transform:none !important; letter-spacing:0 !important; color:var(--text) !important; cursor:pointer;">
+          Customer wants delivery?
+        </label>
+      </div>
+    </div>
+
+    <div id="deliveryFields" style="display:none; flex-direction:column; gap:1rem;">
+
+      <div class="col">
+        <div style="display:flex; align-items:center; gap:.7rem; padding:.75rem 1rem; background:var(--green-light); border:1.5px solid var(--border); border-radius:10px;">
+          <input type="checkbox" name="within_10km" id="within10km" style="width:18px; height:18px; accent-color:var(--green); cursor:pointer;">
+          <label for="within10km" style="margin:0 !important; font-size:.95rem !important; text-transform:none !important; letter-spacing:0 !important; color:var(--text) !important; cursor:pointer;">
+            Customer is within 10km?
+          </label>
+        </div>
+      </div>
+
+      <div style="padding:.75rem 1rem; border-radius:10px; border:1.5px solid var(--border); background:var(--green-light);">
+        <span style="font-size:.72rem; font-weight:600; text-transform:uppercase; letter-spacing:.6px; color:var(--muted);">
+          Transport Charge
+        </span>
+        <div id="chargeDisplay" style="font-size:1.15rem; font-weight:700; color:var(--green-dark); font-family:'DM Mono',monospace; margin-top:.25rem;">
+          UGX 30,000
+        </div>
+        <div id="chargeNote" style="font-size:.78rem; color:var(--muted); margin-top:.2rem;">
+          Standard delivery charge
+        </div>
+      </div>
+
+    </div>
+
+    <!-- SUBMIT -->
     <div class="row">
       <div class="col">
         <button type="submit" class="btn btn-primary btn-lg">Register Sale</button>
       </div>
     </div>
 
-
-
   </form>
-  </div> 
+
+  <script>
+    const deliveryCheckbox = document.getElementById('deliveryCheckbox');
+    const deliveryFields   = document.getElementById('deliveryFields');
+    const within10km       = document.getElementById('within10km');
+    const chargeDisplay    = document.getElementById('chargeDisplay');
+    const chargeNote       = document.getElementById('chargeNote');
+
+    function updateCharge() {
+      const qty        = parseInt(document.querySelector('[name="quantity"]').value) || 0;
+      const price      = parseInt(document.querySelector('[name="unit_price"]').value) || 0;
+      const orderTotal = qty * price;
+      const isNear     = within10km.checked;
+
+      if (isNear && orderTotal >= 500000) {
+        chargeDisplay.textContent = 'UGX 0 — FREE';
+        chargeDisplay.style.color = 'var(--green)';
+        chargeNote.textContent    = 'Within 10km + order ≥ 500,000 UGX → free delivery ✓';
+      } else {
+        chargeDisplay.textContent = 'UGX 30,000';
+        chargeDisplay.style.color = 'var(--green-dark)';
+        chargeNote.textContent    = isNear
+          ? 'Within 10km but order is below 500,000 UGX'
+          : 'Outside 10km — standard delivery charge';
+      }
+    }
+
+    deliveryCheckbox.addEventListener('change', function () {
+      deliveryFields.style.display = this.checked ? 'flex' : 'none';
+    });
+
+    within10km.addEventListener('change', updateCharge);
+    document.querySelector('[name="quantity"]').addEventListener('input', updateCharge);
+    document.querySelector('[name="unit_price"]').addEventListener('input', updateCharge);
+  </script>
+
+  </div>
+
    
 {% endblock %}

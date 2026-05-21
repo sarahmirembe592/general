@@ -371,6 +371,8 @@
           <th>Unit Price</th>
           <th>Total Price</th>
           <th>Payment Method</th>
+          <th>Transport</th>
+          <th>Grand Total</th>
           <th>Action</th>
         </tr>
       </thead>
@@ -384,6 +386,8 @@
           <td>{{ sale.unit_price }}</td>
           <td>{{ sale.total_price }}</td>
           <td>{{ sale.payment_method }}</td>
+          <td>{{ sale.transport_charge }}</td>
+          <td>{{ sale.grand_total }}</td>
           <td>
             <a class="checkout-link" href="{% url 'sale_detail' sale.pk %}">CheckOut</a>
           </td>
